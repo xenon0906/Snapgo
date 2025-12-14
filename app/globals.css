@@ -1,0 +1,297 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 207 100% 35%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 207 100% 35%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 207 100% 35%;
+    --radius: 0.75rem;
+
+    /* Snapgo Brand Colors - Clean Professional */
+    --snapgo-blue: 207 100% 35%;
+    --snapgo-teal: 173 58% 29%;
+    --snapgo-purple: 263 70% 58%;
+
+    /* Light Hero - Clean white with subtle accent */
+    --hero-bg: 0 0% 100%;
+    --hero-text: 0 0% 0%;
+    --hero-text-muted: 0 0% 40%;
+  }
+
+  /* Dark mode removed - light-only design matching snapgo.co.in */
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+  }
+  /* Fast theme transitions */
+  *, *::before, *::after {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition-duration: 100ms;
+  }
+  /* Interactive elements - snappy */
+  input, textarea, select, button, a {
+    transition-property: background-color, border-color, color, fill, stroke, transform, box-shadow, opacity;
+    transition-duration: 150ms;
+  }
+}
+
+@layer utilities {
+  /* Light Hero Background - Clean white with subtle blue accent */
+  .bg-snapgo-hero {
+    @apply bg-white;
+    position: relative;
+  }
+
+  .bg-snapgo-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(135deg, transparent 0%, rgba(0, 102, 179, 0.03) 100%);
+    pointer-events: none;
+  }
+
+  /* Alternative: Very subtle gradient hero */
+  .bg-snapgo-hero-subtle {
+    background: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(210 40% 98%) 100%);
+  }
+
+  /* Dark hero option (for CTAs, special sections) */
+  .bg-snapgo-hero-dark {
+    background: linear-gradient(135deg, #0066B3 0%, #004B87 100%);
+  }
+
+  /* Clean card style */
+  .card-clean {
+    @apply bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-150;
+  }
+
+  /* Text gradient */
+  .text-snapgo-gradient {
+    background: linear-gradient(90deg, #0066B3 0%, #0d9488 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Glass Effects - Lighter */
+  .glass {
+    @apply bg-white/80 backdrop-blur-md border border-gray-200/50 shadow-lg;
+  }
+
+  .glass-card {
+    @apply bg-white/90 backdrop-blur-md border border-gray-200/50 shadow-lg;
+  }
+
+  /* Glass Effect for Dark Backgrounds - Higher contrast */
+  .glass-dark {
+    @apply bg-white/20 backdrop-blur-md border border-white/30 shadow-lg;
+  }
+
+  /* Glow Effects - Subtle */
+  .glow-primary {
+    box-shadow: 0 0 30px rgba(0, 102, 179, 0.15);
+  }
+
+  .glow-teal {
+    box-shadow: 0 0 30px rgba(13, 148, 136, 0.15);
+  }
+
+  /* Animations - FASTER (Phase 2) */
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: float 4s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 5s ease infinite;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 1.5s linear infinite;
+    background: linear-gradient(90deg, transparent, rgba(0, 102, 179, 0.05), transparent);
+    background-size: 200% 100%;
+  }
+
+  /* Card Hover - Snappier */
+  .card-hover {
+    @apply transition-all duration-200 hover:shadow-lg hover:-translate-y-1;
+  }
+
+  .card-3d {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+
+  /* Hide scrollbar */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Keyframes - Faster animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes blob {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(15px, -20px) scale(1.05);
+  }
+  66% {
+    transform: translate(-10px, 10px) scale(0.95);
+  }
+}
+
+.animate-blob {
+  animation: blob 6s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+/* Reveal Animation - Faster */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-reveal-up {
+  animation: reveal-up 0.4s ease-out forwards;
+}
+
+/* Bounce - Snappier */
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.hover-bounce:hover {
+  animation: bounce-subtle 0.3s ease-in-out;
+}
+
+/* Marquee */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Custom Scrollbar - Clean */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 rounded-full;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/80;
+}
+
+/* Selection */
+::selection {
+  @apply bg-primary/20 text-foreground;
+}
+
+/* Focus styles */
+*:focus-visible {
+  @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+}
+
+/* Three.js canvas */
+.three-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}

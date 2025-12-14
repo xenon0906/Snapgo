@@ -1,0 +1,169 @@
+'use client'
+
+import { useState } from 'react'
+import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
+import { SITE_CONFIG } from '@/lib/constants'
+import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import {
+  LayoutDashboard,
+  FileText,
+  Award,
+  Settings,
+  Menu,
+  X,
+  LogOut,
+  ChevronRight,
+  Home,
+  Users,
+} from 'lucide-react'
+
+const sidebarLinks = [
+  { href: '/admin', icon: LayoutDashboard, label: 'Dashboard' },
+  { href: '/admin/blogs', icon: FileText, label: 'Blog Manager' },
+  { href: '/admin/team', icon: Users, label: 'Team Manager' },
+  { href: '/admin/achievements', icon: Award, label: 'Achievements' },
+  { href: '/admin/settings', icon: Settings, label: 'Settings' },
+]
+
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const pathname = usePathname()
+  const router = useRouter()
+
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/admin/logout', { method: 'POST' })
+      router.push('/admin/login')
+      router.refresh()
+    } catch (error) {
+      console.error('Logout error:', error)
+    }
+  }
+
+  return (
+    <div className="min-h-screen bg-muted/30">
+      {/* Sidebar */}
+      <aside
+        className={cn(
+          'fixed left-0 top-0 z-40 h-screen bg-background border-r transition-all duration-300',
+          sidebarOpen ? 'w-64' : 'w-20'
+        )}
+      >
+        {/* Logo */}
+        <div className="h-16 flex items-center justify-between px-4 border-b">
+          <Link href="/admin" className="flex items-center gap-3">
+            <div className="relative w-10 h-10">
+              <Image
+                src="/images/logo/Snapgo%20Logo%20White.png"
+                alt={SITE_CONFIG.name}
+                fill
+                className="object-contain brightness-110"
+              />
+            </div>
+            {sidebarOpen && (
+              <span className="font-bold text-lg">Admin</span>
+            )}
+          </Link>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="hidden lg:flex"
+          >
+            <ChevronRight className={cn(
+              'w-5 h-5 transition-transform',
+              !sidebarOpen && 'rotate-180'
+            )} />
+          </Button>
+        </div>
+
+        {/* Navigation */}
+        <nav className="p-4 space-y-2">
+          {sidebarLinks.map((link) => {
+            const Icon = link.icon
+            const isActive = pathname === link.href ||
+              (link.href !== '/admin' && pathname.startsWith(link.href))
+
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  'flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200',
+                  isActive
+                    ? 'bg-primary/10 text-primary'
+                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                )}
+              >
+                <Icon className="w-5 h-5 flex-shrink-0" />
+                {sidebarOpen && <span>{link.label}</span>}
+              </Link>
+            )
+          })}
+        </nav>
+
+        {/* Footer */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t space-y-2">
+          <Link
+            href="/"
+            className={cn(
+              'flex items-center gap-3 px-4 py-3 rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors'
+            )}
+          >
+            <Home className="w-5 h-5 flex-shrink-0" />
+            {sidebarOpen && <span>Back to Site</span>}
+          </Link>
+          <button
+            onClick={handleLogout}
+            className={cn(
+              'w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-500 hover:bg-red-50 transition-colors'
+            )}
+          >
+            <LogOut className="w-5 h-5 flex-shrink-0" />
+            {sidebarOpen && <span>Logout</span>}
+          </button>
+        </div>
+      </aside>
+
+      {/* Main Content */}
+      <main
+        className={cn(
+          'min-h-screen transition-all duration-300',
+          sidebarOpen ? 'lg:pl-64' : 'lg:pl-20'
+        )}
+      >
+        {/* Mobile Header */}
+        <header className="lg:hidden h-16 bg-background border-b flex items-center px-4">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+          >
+            <Menu className="w-6 h-6" />
+          </Button>
+          <span className="ml-4 font-semibold">Admin Panel</span>
+        </header>
+
+        <div className="p-6 lg:p-8">
+          {children}
+        </div>
+      </main>
+
+      {/* Mobile Overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-30 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+    </div>
+  )
+}
