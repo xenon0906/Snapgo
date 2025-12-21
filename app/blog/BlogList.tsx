@@ -38,19 +38,19 @@ function BlogHero({ onScrollDown }: { onScrollDown: () => void }) {
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           {/* Title */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 flex items-baseline justify-center gap-3 flex-wrap">
+          <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-6 flex items-baseline justify-center gap-2 sm:gap-3 md:gap-4 flex-wrap">
             Latest from
             <Image
               src="/images/logo/Snapgo Logo White.png"
               alt="Snapgo"
-              width={160}
-              height={40}
-              className="object-contain inline-block h-[46px] sm:h-[60px] md:h-[76px] lg:h-[90px] w-auto translate-y-10"
+              width={200}
+              height={50}
+              className="object-contain inline-block h-[32px] xs:h-[40px] sm:h-[54px] md:h-[68px] lg:h-[80px] xl:h-[96px] w-auto translate-y-[6px] sm:translate-y-[8px] md:translate-y-[10px] lg:translate-y-[12px]"
             />
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xl text-white/70 max-w-2xl mx-auto mb-12 mt-8">
+          <p className="text-base sm:text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-8 sm:mb-12 mt-4 sm:mt-6 md:mt-8">
             Tips, stories, and insights about ride-sharing, saving money, and sustainable travel.
           </p>
 

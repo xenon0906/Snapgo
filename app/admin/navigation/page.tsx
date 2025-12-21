@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, Reorder } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -41,85 +41,146 @@ interface MenuItem {
   visible: boolean
   external: boolean
   order: number
-  children?: MenuItem[]
+  location: string
+  section?: string
 }
-
-interface FooterLink {
-  id: string
-  label: string
-  href: string
-  visible: boolean
-}
-
-interface FooterSection {
-  id: string
-  title: string
-  links: FooterLink[]
-}
-
-// Initial menu items
-const initialMenuItems: MenuItem[] = [
-  { id: '1', label: 'Home', href: '/', icon: 'Home', visible: true, external: false, order: 1 },
-  { id: '2', label: 'Features', href: '/features', icon: 'Star', visible: true, external: false, order: 2 },
-  { id: '3', label: 'How It Works', href: '/how-it-works', icon: 'HelpCircle', visible: true, external: false, order: 3 },
-  { id: '4', label: 'Safety', href: '/safety', icon: 'Shield', visible: true, external: false, order: 4 },
-  { id: '5', label: 'About', href: '/about', icon: 'Info', visible: true, external: false, order: 5 },
-  { id: '6', label: 'Team', href: '/team', icon: 'Users', visible: true, external: false, order: 6 },
-  { id: '7', label: 'Blog', href: '/blog', icon: 'FileText', visible: true, external: false, order: 7 },
-  { id: '8', label: 'Contact', href: '/contact', icon: 'Phone', visible: true, external: false, order: 8 },
-]
-
-const initialFooterSections: FooterSection[] = [
-  {
-    id: 'company',
-    title: 'Company',
-    links: [
-      { id: 'f1', label: 'About Us', href: '/about', visible: true },
-      { id: 'f2', label: 'Team', href: '/team', visible: true },
-      { id: 'f3', label: 'Careers', href: '/careers', visible: false },
-      { id: 'f4', label: 'Blog', href: '/blog', visible: true },
-    ],
-  },
-  {
-    id: 'product',
-    title: 'Product',
-    links: [
-      { id: 'f5', label: 'Features', href: '/features', visible: true },
-      { id: 'f6', label: 'How It Works', href: '/how-it-works', visible: true },
-      { id: 'f7', label: 'Safety', href: '/safety', visible: true },
-      { id: 'f8', label: 'FAQ', href: '/faq', visible: true },
-    ],
-  },
-  {
-    id: 'legal',
-    title: 'Legal',
-    links: [
-      { id: 'f9', label: 'Privacy Policy', href: '/privacy', visible: true },
-      { id: 'f10', label: 'Terms of Service', href: '/terms', visible: true },
-      { id: 'f11', label: 'Refund Policy', href: '/refund', visible: true },
-    ],
-  },
-]
 
 const iconOptions = [
   'Home', 'Info', 'Briefcase', 'Users', 'FileText', 'Phone', 'Shield', 'HelpCircle', 'Star', 'Heart', 'Mail', 'Map'
 ]
 
 export default function NavigationPage() {
-  const [menuItems, setMenuItems] = useState<MenuItem[]>(initialMenuItems)
-  const [footerSections, setFooterSections] = useState<FooterSection[]>(initialFooterSections)
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([])
+  const [footerItems, setFooterItems] = useState<MenuItem[]>([])
+  const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const [activeTab, setActiveTab] = useState<'header' | 'footer'>('header')
   const [expandedSection, setExpandedSection] = useState<string | null>('company')
+
+  // Fetch navigation items from API
+  useEffect(() => {
+    const fetchNavigation = async () => {
+      try {
+        const response = await fetch('/api/navigation')
+        if (response.ok) {
+          const data = await response.json()
+          // Separate header and footer items
+          const headerItems = data.filter((item: MenuItem) => item.location === 'header')
+          const footerItemsList = data.filter((item: MenuItem) => item.location === 'footer')
+          setMenuItems(headerItems)
+          setFooterItems(footerItemsList)
+        }
+      } catch (error) {
+        console.error('Failed to fetch navigation:', error)
+        setMessage({ type: 'error', text: 'Failed to load navigation' })
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchNavigation()
+  }, [])
+
+  // Group footer items by section
+  const footerSections = footerItems.reduce((acc, item) => {
+    const section = item.section || 'other'
+    if (!acc[section]) {
+      acc[section] = []
+    }
+    acc[section].push(item)
+    return acc
+  }, {} as Record<string, MenuItem[]>)
+
+  const sectionTitles: Record<string, string> = {
+    company: 'Company',
+    product: 'Product',
+    legal: 'Legal',
+    other: 'Other',
+  }
 
   const handleSave = async () => {
     setSaving(true)
     setMessage(null)
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      // Save header items
+      for (const item of menuItems) {
+        if (item.id.startsWith('temp-')) {
+          await fetch('/api/navigation', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              label: item.label,
+              href: item.href,
+              icon: item.icon,
+              visible: item.visible,
+              external: item.external,
+              order: item.order,
+              location: 'header',
+            }),
+          })
+        } else {
+          await fetch(`/api/navigation/${item.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              label: item.label,
+              href: item.href,
+              icon: item.icon,
+              visible: item.visible,
+              external: item.external,
+              order: item.order,
+              location: 'header',
+            }),
+          })
+        }
+      }
+
+      // Save footer items
+      for (const item of footerItems) {
+        if (item.id.startsWith('temp-')) {
+          await fetch('/api/navigation', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              label: item.label,
+              href: item.href,
+              icon: item.icon,
+              visible: item.visible,
+              external: item.external,
+              order: item.order,
+              location: 'footer',
+              section: item.section,
+            }),
+          })
+        } else {
+          await fetch(`/api/navigation/${item.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              label: item.label,
+              href: item.href,
+              icon: item.icon,
+              visible: item.visible,
+              external: item.external,
+              order: item.order,
+              location: 'footer',
+              section: item.section,
+            }),
+          })
+        }
+      }
+
+      // Refresh the list
+      const response = await fetch('/api/navigation')
+      if (response.ok) {
+        const data = await response.json()
+        const headerItems = data.filter((item: MenuItem) => item.location === 'header')
+        const footerItemsList = data.filter((item: MenuItem) => item.location === 'footer')
+        setMenuItems(headerItems)
+        setFooterItems(footerItemsList)
+      }
+
       setMessage({ type: 'success', text: 'Navigation saved successfully!' })
     } catch (error) {
       setMessage({ type: 'error', text: 'Failed to save navigation' })
@@ -130,13 +191,14 @@ export default function NavigationPage() {
 
   const addMenuItem = () => {
     const newItem: MenuItem = {
-      id: Date.now().toString(),
+      id: `temp-${Date.now()}`,
       label: 'New Link',
       href: '/',
       icon: 'LinkIcon',
       visible: true,
       external: false,
       order: menuItems.length + 1,
+      location: 'header',
     }
     setMenuItems([...menuItems, newItem])
   }
@@ -145,48 +207,52 @@ export default function NavigationPage() {
     setMenuItems(menuItems.map((item) => (item.id === id ? { ...item, ...updates } : item)))
   }
 
-  const removeMenuItem = (id: string) => {
+  const removeMenuItem = async (id: string) => {
+    if (!id.startsWith('temp-')) {
+      try {
+        await fetch(`/api/navigation/${id}`, { method: 'DELETE' })
+      } catch (error) {
+        console.error('Failed to delete menu item:', error)
+      }
+    }
     setMenuItems(menuItems.filter((item) => item.id !== id))
   }
 
   const addFooterLink = (sectionId: string) => {
-    const newLink: FooterLink = {
-      id: Date.now().toString(),
+    const newLink: MenuItem = {
+      id: `temp-${Date.now()}`,
       label: 'New Link',
       href: '/',
+      icon: '',
       visible: true,
+      external: false,
+      order: footerItems.filter(i => i.section === sectionId).length + 1,
+      location: 'footer',
+      section: sectionId,
     }
-    setFooterSections(
-      footerSections.map((section) =>
-        section.id === sectionId
-          ? { ...section, links: [...section.links, newLink] }
-          : section
-      )
-    )
+    setFooterItems([...footerItems, newLink])
   }
 
-  const updateFooterLink = (sectionId: string, linkId: string, updates: Partial<FooterLink>) => {
-    setFooterSections(
-      footerSections.map((section) =>
-        section.id === sectionId
-          ? {
-              ...section,
-              links: section.links.map((link) =>
-                link.id === linkId ? { ...link, ...updates } : link
-              ),
-            }
-          : section
-      )
-    )
+  const updateFooterLink = (linkId: string, updates: Partial<MenuItem>) => {
+    setFooterItems(footerItems.map((link) => (link.id === linkId ? { ...link, ...updates } : link)))
   }
 
-  const removeFooterLink = (sectionId: string, linkId: string) => {
-    setFooterSections(
-      footerSections.map((section) =>
-        section.id === sectionId
-          ? { ...section, links: section.links.filter((link) => link.id !== linkId) }
-          : section
-      )
+  const removeFooterLink = async (linkId: string) => {
+    if (!linkId.startsWith('temp-')) {
+      try {
+        await fetch(`/api/navigation/${linkId}`, { method: 'DELETE' })
+      } catch (error) {
+        console.error('Failed to delete footer link:', error)
+      }
+    }
+    setFooterItems(footerItems.filter((link) => link.id !== linkId))
+  }
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
     )
   }
 
@@ -355,17 +421,19 @@ export default function NavigationPage() {
       {/* Footer Links Editor */}
       {activeTab === 'footer' && (
         <div className="space-y-4">
-          {footerSections.map((section) => (
-            <Card key={section.id}>
+          {['company', 'product', 'legal'].map((sectionId) => (
+            <Card key={sectionId}>
               <CardHeader
                 className="cursor-pointer hover:bg-muted/50 transition-colors"
-                onClick={() => setExpandedSection(expandedSection === section.id ? null : section.id)}
+                onClick={() => setExpandedSection(expandedSection === sectionId ? null : sectionId)}
               >
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg">{section.title}</CardTitle>
+                  <CardTitle className="text-lg">{sectionTitles[sectionId]}</CardTitle>
                   <div className="flex items-center gap-2">
-                    <Badge variant="outline">{section.links.filter((l) => l.visible).length} active</Badge>
-                    {expandedSection === section.id ? (
+                    <Badge variant="outline">
+                      {(footerSections[sectionId] || []).filter((l) => l.visible).length} active
+                    </Badge>
+                    {expandedSection === sectionId ? (
                       <ChevronDown className="w-5 h-5" />
                     ) : (
                       <ChevronRight className="w-5 h-5" />
@@ -373,9 +441,9 @@ export default function NavigationPage() {
                   </div>
                 </div>
               </CardHeader>
-              {expandedSection === section.id && (
+              {expandedSection === sectionId && (
                 <CardContent className="space-y-3">
-                  {section.links.map((link) => (
+                  {(footerSections[sectionId] || []).map((link) => (
                     <motion.div
                       key={link.id}
                       layout
@@ -388,9 +456,7 @@ export default function NavigationPage() {
                           <Label className="text-xs text-muted-foreground">Label</Label>
                           <Input
                             value={link.label}
-                            onChange={(e) =>
-                              updateFooterLink(section.id, link.id, { label: e.target.value })
-                            }
+                            onChange={(e) => updateFooterLink(link.id, { label: e.target.value })}
                             className="mt-1"
                           />
                         </div>
@@ -398,18 +464,14 @@ export default function NavigationPage() {
                           <Label className="text-xs text-muted-foreground">URL</Label>
                           <Input
                             value={link.href}
-                            onChange={(e) =>
-                              updateFooterLink(section.id, link.id, { href: e.target.value })
-                            }
+                            onChange={(e) => updateFooterLink(link.id, { href: e.target.value })}
                             className="mt-1"
                           />
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
                         <button
-                          onClick={() =>
-                            updateFooterLink(section.id, link.id, { visible: !link.visible })
-                          }
+                          onClick={() => updateFooterLink(link.id, { visible: !link.visible })}
                           className={`p-2 rounded-lg transition-colors ${
                             link.visible ? 'text-green-600 hover:bg-green-50' : 'text-muted-foreground hover:bg-muted'
                           }`}
@@ -417,7 +479,7 @@ export default function NavigationPage() {
                           {link.visible ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
                         </button>
                         <button
-                          onClick={() => removeFooterLink(section.id, link.id)}
+                          onClick={() => removeFooterLink(link.id)}
                           className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -425,7 +487,7 @@ export default function NavigationPage() {
                       </div>
                     </motion.div>
                   ))}
-                  <Button variant="outline" size="sm" onClick={() => addFooterLink(section.id)}>
+                  <Button variant="outline" size="sm" onClick={() => addFooterLink(sectionId)}>
                     <Plus className="w-4 h-4 mr-2" />
                     Add Link
                   </Button>
@@ -467,11 +529,11 @@ export default function NavigationPage() {
           ) : (
             <div className="bg-gray-900 rounded-xl p-6">
               <div className="grid grid-cols-3 gap-8">
-                {footerSections.map((section) => (
-                  <div key={section.id}>
-                    <h4 className="text-white font-semibold mb-3">{section.title}</h4>
+                {['company', 'product', 'legal'].map((sectionId) => (
+                  <div key={sectionId}>
+                    <h4 className="text-white font-semibold mb-3">{sectionTitles[sectionId]}</h4>
                     <ul className="space-y-2">
-                      {section.links
+                      {(footerSections[sectionId] || [])
                         .filter((link) => link.visible)
                         .map((link) => (
                           <li key={link.id}>

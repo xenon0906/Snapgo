@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/api-auth'
 import { revalidateTag } from 'next/cache'
 
+export const dynamic = 'force-dynamic'
+
 // GET - Fetch active hero content
 export async function GET() {
   try {

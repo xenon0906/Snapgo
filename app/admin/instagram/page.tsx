@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -43,35 +43,7 @@ interface InstagramSettings {
   maxReels: number
 }
 
-// Initial reels data
-const initialReels: InstagramReel[] = [
-  {
-    id: '1',
-    reelId: 'DDxfo_TTOZF',
-    title: 'Save 75% on Daily Commute',
-    description: 'Learn how Snapgo helps you save money on daily travel',
-    visible: true,
-    order: 1,
-  },
-  {
-    id: '2',
-    reelId: 'DDxfo_TTOZF',
-    title: 'How Snapgo Matching Works',
-    description: 'See our smart matching algorithm in action',
-    visible: true,
-    order: 2,
-  },
-  {
-    id: '3',
-    reelId: 'DDxfo_TTOZF',
-    title: 'Student Success Stories',
-    description: 'Real students sharing their Snapgo experience',
-    visible: true,
-    order: 3,
-  },
-]
-
-const initialSettings: InstagramSettings = {
+const defaultSettings: InstagramSettings = {
   username: 'snapgo.co.in',
   profileUrl: 'https://www.instagram.com/snapgo.co.in',
   showSection: true,
@@ -80,19 +52,81 @@ const initialSettings: InstagramSettings = {
 }
 
 export default function InstagramManagerPage() {
-  const [reels, setReels] = useState<InstagramReel[]>(initialReels)
-  const [settings, setSettings] = useState<InstagramSettings>(initialSettings)
+  const [reels, setReels] = useState<InstagramReel[]>([])
+  const [settings, setSettings] = useState<InstagramSettings>(defaultSettings)
+  const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const [activeTab, setActiveTab] = useState<'reels' | 'settings'>('reels')
+
+  // Fetch reels from API
+  useEffect(() => {
+    const fetchReels = async () => {
+      try {
+        const response = await fetch('/api/instagram')
+        if (response.ok) {
+          const data = await response.json()
+          setReels(data.map((reel: any) => ({
+            ...reel,
+            description: reel.description || '',
+          })))
+        }
+      } catch (error) {
+        console.error('Failed to fetch reels:', error)
+        setMessage({ type: 'error', text: 'Failed to load reels' })
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchReels()
+  }, [])
 
   const handleSave = async () => {
     setSaving(true)
     setMessage(null)
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      // Save all reels
+      for (const reel of reels) {
+        if (reel.id.startsWith('temp-')) {
+          // Create new reel
+          await fetch('/api/instagram', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              reelId: reel.reelId,
+              title: reel.title,
+              description: reel.description,
+              visible: reel.visible,
+              order: reel.order,
+            }),
+          })
+        } else {
+          // Update existing reel
+          await fetch(`/api/instagram/${reel.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              reelId: reel.reelId,
+              title: reel.title,
+              description: reel.description,
+              visible: reel.visible,
+              order: reel.order,
+            }),
+          })
+        }
+      }
+
+      // Refresh the list
+      const response = await fetch('/api/instagram')
+      if (response.ok) {
+        const data = await response.json()
+        setReels(data.map((reel: any) => ({
+          ...reel,
+          description: reel.description || '',
+        })))
+      }
+
       setMessage({ type: 'success', text: 'Instagram settings saved successfully!' })
     } catch (error) {
       setMessage({ type: 'error', text: 'Failed to save settings' })
@@ -103,7 +137,7 @@ export default function InstagramManagerPage() {
 
   const addReel = () => {
     const newReel: InstagramReel = {
-      id: Date.now().toString(),
+      id: `temp-${Date.now()}`,
       reelId: '',
       title: 'New Reel',
       description: '',
@@ -117,7 +151,14 @@ export default function InstagramManagerPage() {
     setReels(reels.map((reel) => (reel.id === id ? { ...reel, ...updates } : reel)))
   }
 
-  const removeReel = (id: string) => {
+  const removeReel = async (id: string) => {
+    if (!id.startsWith('temp-')) {
+      try {
+        await fetch(`/api/instagram/${id}`, { method: 'DELETE' })
+      } catch (error) {
+        console.error('Failed to delete reel:', error)
+      }
+    }
     setReels(reels.filter((reel) => reel.id !== id))
   }
 
@@ -125,6 +166,14 @@ export default function InstagramManagerPage() {
     // Extract reel ID from Instagram URL
     const match = url.match(/reel\/([A-Za-z0-9_-]+)/)
     return match ? match[1] : url
+  }
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    )
   }
 
   return (

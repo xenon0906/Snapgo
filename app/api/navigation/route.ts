@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { validateAdminSession } from '@/lib/api-auth'
+import { requireAuth } from '@/lib/api-auth'
 
 // GET all navigation items
 export async function GET(request: NextRequest) {
@@ -25,10 +25,8 @@ export async function GET(request: NextRequest) {
 // POST create new navigation item
 export async function POST(request: NextRequest) {
   try {
-    const isAdmin = await validateAdminSession(request)
-    if (!isAdmin) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
+    const authError = await requireAuth()
+    if (authError) return authError
 
     const body = await request.json()
     const { label, href, icon, location, section, visible, external, order } = body
@@ -56,10 +54,8 @@ export async function POST(request: NextRequest) {
 // PUT update navigation items
 export async function PUT(request: NextRequest) {
   try {
-    const isAdmin = await validateAdminSession(request)
-    if (!isAdmin) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
+    const authError = await requireAuth()
+    if (authError) return authError
 
     const body = await request.json()
     const { items } = body
@@ -95,10 +91,8 @@ export async function PUT(request: NextRequest) {
 // DELETE navigation item
 export async function DELETE(request: NextRequest) {
   try {
-    const isAdmin = await validateAdminSession(request)
-    if (!isAdmin) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
+    const authError = await requireAuth()
+    if (authError) return authError
 
     const { searchParams } = new URL(request.url)
     const id = searchParams.get('id')

@@ -7,6 +7,8 @@ import {
   getTrafficSources,
 } from '@/lib/ga-server'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET() {
   // Require admin authentication
   const authError = await requireAuth()

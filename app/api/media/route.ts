@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { validateAdminSession } from '@/lib/api-auth'
+import { requireAuth } from '@/lib/api-auth'
 
 // GET all media files
 export async function GET(request: NextRequest) {
@@ -25,10 +25,8 @@ export async function GET(request: NextRequest) {
 // POST register new media file (after upload)
 export async function POST(request: NextRequest) {
   try {
-    const isAdmin = await validateAdminSession(request)
-    if (!isAdmin) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
+    const authError = await requireAuth()
+    if (authError) return authError
 
     const body = await request.json()
     const { filename, url, category, mimeType, size, alt } = body
@@ -54,10 +52,8 @@ export async function POST(request: NextRequest) {
 // DELETE media file
 export async function DELETE(request: NextRequest) {
   try {
-    const isAdmin = await validateAdminSession(request)
-    if (!isAdmin) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
+    const authError = await requireAuth()
+    if (authError) return authError
 
     const { searchParams } = new URL(request.url)
     const id = searchParams.get('id')

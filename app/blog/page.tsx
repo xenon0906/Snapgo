@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Read the latest articles about ride-sharing, saving money on commute, and sustainable travel tips from snapgo.',
 }
 
-export const revalidate = 3600 // Revalidate every hour
+export const dynamic = 'force-dynamic'
 
 async function getBlogs() {
   try {
