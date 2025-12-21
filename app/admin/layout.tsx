@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import Image from 'next/image'
+import NextImage from 'next/image'
 import { motion } from 'framer-motion'
 import { SITE_CONFIG } from '@/lib/constants'
 import { cn } from '@/lib/utils'
@@ -30,10 +30,16 @@ import {
   Share2,
   Search,
   Globe,
+  Image as ImageIcon,
+  Instagram,
+  HelpCircle,
+  FileStack,
+  Navigation,
 } from 'lucide-react'
 
 const sidebarLinks = [
   { href: '/admin', icon: LayoutDashboard, label: 'Dashboard' },
+  { href: '/admin/pages', icon: FileStack, label: 'Pages Overview' },
   { href: '/admin/content', icon: Layers, label: 'Content Manager', isSection: true },
   { href: '/admin/content/hero', icon: Sparkles, label: 'Hero Section', parent: '/admin/content' },
   { href: '/admin/content/stats', icon: BarChart3, label: 'Statistics', parent: '/admin/content' },
@@ -46,6 +52,10 @@ const sidebarLinks = [
   { href: '/admin/blogs', icon: FileText, label: 'Blog Manager' },
   { href: '/admin/team', icon: Users, label: 'Team Manager' },
   { href: '/admin/achievements', icon: Award, label: 'Achievements' },
+  { href: '/admin/faq', icon: HelpCircle, label: 'FAQ Manager' },
+  { href: '/admin/instagram', icon: Instagram, label: 'Instagram Reels' },
+  { href: '/admin/media', icon: ImageIcon, label: 'Media Library' },
+  { href: '/admin/navigation', icon: Navigation, label: 'Navigation Editor' },
   { href: '/admin/seo', icon: Search, label: 'SEO & Optimization' },
   { href: '/admin/settings', icon: Settings, label: 'Settings' },
 ]
@@ -82,7 +92,7 @@ export default function AdminLayout({
         <div className="h-16 flex items-center justify-between px-4 border-b">
           <Link href="/admin" className="flex items-center gap-3">
             <div className="relative w-10 h-10">
-              <Image
+              <NextImage
                 src="/images/logo/Snapgo%20Logo%20White.png"
                 alt={SITE_CONFIG.name}
                 fill

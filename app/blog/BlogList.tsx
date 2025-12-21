@@ -38,9 +38,15 @@ function BlogHero({ onScrollDown }: { onScrollDown: () => void }) {
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           {/* Title */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
-            Latest from{' '}
-            <span className="text-white/90">Snapgo</span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 flex items-center justify-center gap-4 flex-wrap">
+            Latest from
+            <Image
+              src="/images/logo/Snapgo Logo White.png"
+              alt="Snapgo"
+              width={180}
+              height={70}
+              className="object-contain inline-block"
+            />
           </h1>
 
           {/* Subtitle */}

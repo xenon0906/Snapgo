@@ -23,7 +23,7 @@ function formatFileSize(bytes: number): string {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
 }
 
-export type FileCategory = 'blog' | 'team' | 'achievements' | 'logo' | 'general'
+export type FileCategory = 'blog' | 'team' | 'achievements' | 'logo' | 'general' | 'media'
 
 interface FileUploadProps {
   category: FileCategory
