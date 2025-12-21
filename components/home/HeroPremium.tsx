@@ -74,9 +74,9 @@ export function HeroPremium({ hero }: HeroPremiumProps = {}) {
           {/* Left content */}
           <div className="text-center lg:text-left">
             {/* Bold stacked headline - Rapido inspired */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight mb-6">
-              <span className="text-gray-900 block">Share Rides.</span>
-              <span className="text-[#0e4493] block">Save ₹12,000/year.</span>
+            <h1 className="text-[1.75rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight mb-6">
+              <span className="text-gray-900 block whitespace-nowrap">Share Rides.</span>
+              <span className="text-[#0e4493] block whitespace-nowrap">Save ₹12,000/year.</span>
             </h1>
 
             {/* Subheadline - clean, single paragraph */}
