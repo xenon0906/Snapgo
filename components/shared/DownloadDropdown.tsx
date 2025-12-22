@@ -46,7 +46,7 @@ export function DownloadDropdown({ variant = 'gradient', size = 'lg', className 
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuItem asChild>
           <Link
-            href="https://play.google.com/store/apps/details?id=com.snapgo.app"
+            href="https://play.google.com/store/apps/details?id=in.snapgo.app&hl=en_IN"
             target="_blank"
             className="flex items-center gap-3 cursor-pointer"
           >
@@ -59,7 +59,7 @@ export function DownloadDropdown({ variant = 'gradient', size = 'lg', className 
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link
-            href="https://apps.apple.com/app/snapgo/id6739696498"
+            href="https://apps.apple.com/in/app/snapgo-connect-split-fare/id6748761741"
             target="_blank"
             className="flex items-center gap-3 cursor-pointer"
           >

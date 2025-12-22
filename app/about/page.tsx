@@ -34,16 +34,17 @@ const timelineIcons: Record<string, React.ElementType> = {
 function AboutHero() {
   return (
     <section className="hero-viewport bg-gradient-to-br from-slate-900 via-primary to-primary/90">
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            Revolutionizing Urban{' '}
-            <span className="text-teal-400">Transportation</span>
+            Pioneering{' '}
+            <span className="text-teal-400">Cab Pooling</span> in India
           </h1>
 
           <p className="text-xl text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Connect with verified co-riders going your way. Share a cab, split the fare,
-            and reduce your carbon footprint together.
+            Pool and go — with or without a car. Whether you're booking a cab together
+            or sharing your own ride, join India's greenest commuting community.
+            Save money, reduce emissions, travel together.
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 mb-12">
@@ -66,7 +67,7 @@ function AboutHero() {
           {/* Simple quote - no decorative frame */}
           <div className="max-w-2xl mx-auto">
             <p className="text-white/80 italic text-lg leading-relaxed">
-              "Every day, millions of Indians travel the same routes alone. We're changing that, one shared ride at a time."
+              "Every day, millions take separate cabs to the same destination. With cab pooling, 4 people share 1 cab — saving money, supporting drivers, and reducing emissions by 75%."
             </p>
             <p className="text-teal-400 text-sm mt-4 font-medium">— Mohit & Surya Purohit, Co-Founders</p>
           </div>
@@ -83,7 +84,7 @@ function VideoDocumentarySection() {
       <VideoHero
         videoId="drglwf8KjVU"
         title="The Snapgo Story"
-        subtitle="See how we're transforming daily commutes across India"
+        subtitle="See how cab pooling is transforming daily commutes — saving money, supporting drivers, and reducing emissions"
       />
     </section>
   )
@@ -96,23 +97,24 @@ function FounderStory() {
 
   return (
     <section ref={ref} className="section-padding bg-gray-50">
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         <div className="max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Visual Side - simple gradient box */}
             <div className="aspect-square rounded-3xl bg-gradient-to-br from-primary to-teal-500 flex items-center justify-center">
               <div className="text-center text-white p-8">
-                <Lightbulb className="w-16 h-16 mx-auto mb-6" />
-                <p className="text-2xl font-bold">Born from a</p>
-                <p className="text-4xl font-bold mt-2">Simple Idea</p>
+                <Car className="w-16 h-16 mx-auto mb-6" />
+                <p className="text-2xl font-bold">Cab Pooling</p>
+                <p className="text-4xl font-bold mt-2">Not Carpooling</p>
+                <p className="text-sm mt-4 opacity-80">Legal • Eco-Friendly • Driver-Friendly</p>
               </div>
             </div>
 
             {/* Content Side */}
             <div>
-              <p className="text-sm font-medium text-teal-600 mb-2">Our Origin</p>
+              <p className="text-sm font-medium text-teal-600 mb-2">Our Innovation</p>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                How <span className="text-primary">Snapgo</span> Was Born
+                Why <span className="text-primary">Cab Pooling</span>, Not Carpooling?
               </h2>
               <p className="text-gray-600 text-lg leading-relaxed mb-6">
                 {ABOUT_STORY.origin}
@@ -179,7 +181,7 @@ function MissionVisionValues() {
 
   return (
     <section ref={ref} className="section-padding bg-white relative">
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -232,7 +234,7 @@ function Timeline() {
 
   return (
     <section ref={ref} className="section-padding bg-gradient-to-br from-primary to-teal-600 text-white">
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         <div className="text-center mb-16">
           <p className="text-white/60 text-sm font-medium mb-2">Our Journey</p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
@@ -272,7 +274,7 @@ function TeamCTA() {
 
   return (
     <section ref={ref} className="section-padding bg-gray-50">
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -299,7 +301,7 @@ function TeamCTA() {
             Meet the <span className="text-snapgo-gradient">Visionaries</span>
           </h2>
           <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
-            The passionate team behind Snapgo's mission to revolutionize urban transportation in India.
+            The passionate team behind Snapgo's mission to pioneer cab pooling — making travel legal, green, and affordable for everyone.
           </p>
 
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>

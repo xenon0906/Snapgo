@@ -1,8 +1,8 @@
 export const SITE_CONFIG = {
   name: 'Snapgo',
   legalName: 'Snapgo Service Private Limited',
-  tagline: 'Share Rides, Save Money, Travel Together',
-  description: 'Connect with people going to the same destination. Save up to 75% on cab fares while making your journey safer and eco-friendly.',
+  tagline: 'Pool Cabs, Save Money, Go Green',
+  description: "India's #1 Cab Pooling Platform. Pool a commercial cab with verified co-riders - 100% legal, eco-friendly, and up to 75% cheaper. Why pay for the full cab when you can save money AND the environment?",
   url: 'https://snapgo.in',
   email: 'info@snapgo.co.in',
   phone: '+91 6398786105',
@@ -16,8 +16,8 @@ export const SITE_CONFIG = {
 }
 
 export const HERO_CONTENT = {
-  headline: 'Revolutionizing Urban Transportation, One Shared Ride at a Time.',
-  subtext: "At Snapgo, we believe that getting around your city shouldn't break the bank or leave you stranded. By helping users connect with others traveling the same route, Snapgo enables ride-sharing, fare-splitting, and secure connections—making everyday travel not just cost-effective, but more social and sustainable too.",
+  headline: 'Pool Cabs, Not Cars. Save Money AND the Planet.',
+  subtext: "Unlike carpooling with private cars, Snapgo pools commercial cabs — 100% legal, driver-friendly, and eco-conscious. Connect with verified co-riders heading your way, split the fare, and reduce road emissions by 75%. Same destination, shared cab, triple the benefit.",
 }
 
 export const STATS = [
@@ -49,14 +49,14 @@ export const FEATURES = [
     icon: 'Clock',
   },
   {
-    title: 'Eco-Friendly',
-    description: 'Reduce carbon footprint by sharing rides with fellow travelers',
+    title: 'Green Cab Pooling',
+    description: '4 people, 1 cab = 75% less pollution. We pool commercial cabs, not private cars — legal AND eco-friendly',
     icon: 'Leaf',
   },
   {
-    title: 'Smart Matching',
-    description: 'Advanced algorithm matches within 750m radius for perfect routes',
-    icon: 'MapPin',
+    title: 'Pool Your Way',
+    description: 'No car? Book a cab together. Have a car? Offer rides. Two options, same savings, one green mission.',
+    icon: 'Shuffle',
   },
 ]
 
@@ -75,8 +75,8 @@ export const HOW_IT_WORKS = [
   },
   {
     step: 3,
-    title: 'Share & Save',
-    description: 'Connect, chat, meet at a common point, share the fare, and save money',
+    title: 'Pool Together & Save',
+    description: 'Book a cab together or join a self-drive ride — split costs and save up to 75%',
     icon: 'Users',
   },
 ]
@@ -101,10 +101,10 @@ export const TESTIMONIALS = [
 
 export const ABOUT_STORY = {
   origin: "It was a regular day when we, Mohit and Surya Purohit, were heading to Ghaziabad Railway Station from our society. We booked a cab and noticed another person also taking a cab from our area. When we reached the station, we saw the same person at the parking lot. That's when it hit us - we both paid ₹300 separately for the same route. If we had known we were going to the same place, we could have shared the ride and paid just ₹300 total, saving ₹300 together!",
-  spark: "This simple observation sparked an idea: What if there was an app that could connect people traveling to the same destination? And that's how Snapgo was born - from a personal experience that we knew thousands of others faced every day.",
-  mission: 'To make travel affordable and accessible for everyone by connecting people who share similar routes, reducing costs and environmental impact.',
-  vision: "To become India's most trusted ride-sharing platform, creating a community where safety, affordability, and sustainability go hand in hand.",
-  values: 'Safety first, user-centric design, transparency, sustainability, and creating value for our community at every step.',
+  spark: "This sparked an idea, but we didn't want to do traditional carpooling with private cars — that's not legal for commercial use and bypasses taxi drivers who depend on fares. Instead, we pioneered 'Cab Pooling' — pooling commercial cabs among verified riders. It's 100% legal, supports drivers, AND reduces road emissions by 75%. That's how Snapgo was born.",
+  mission: 'To make travel affordable and accessible for everyone through cab pooling — connecting people who share similar routes while supporting drivers and reducing environmental impact.',
+  vision: "To become India's most trusted cab pooling platform, where every shared ride means savings for riders, earnings for drivers, and a greener planet for everyone.",
+  values: 'Legal and ethical operations, driver-friendly ecosystem, environmental sustainability, user safety, and creating value for our entire community.',
 }
 
 export const JOURNEY_TIMELINE = [

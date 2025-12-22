@@ -186,7 +186,7 @@ export function InstagramSection() {
         }}
       />
 
-      <section className="section-padding bg-gray-900">
+      <section className="section-padding bg-gray-900 overflow-hidden">
         <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
           {/* Header */}
           <div className="text-center mb-8 sm:mb-12">
@@ -223,7 +223,7 @@ export function InstagramSection() {
           </div>
 
           {/* Reels Carousel */}
-          <div className="max-w-[90vw] sm:max-w-md mx-auto relative">
+          <div className="w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto relative px-2">
             {/* Main Reel Display */}
             <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl bg-black min-h-[350px] sm:min-h-[400px] md:min-h-[500px]">
               <AnimatePresence mode="wait">

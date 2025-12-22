@@ -6,6 +6,7 @@ import { SiteLayout } from '@/components/layout/SiteLayout'
 import { InteractiveWalkthrough, PhoneMockup } from '@/components/how-it-works/InteractiveStepCard'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import Image from 'next/image'
 import {
   MapPin,
   Search,
@@ -58,9 +59,9 @@ const realTimeSteps = [
   },
   {
     icon: Wallet,
-    title: 'Share & Save',
-    description: 'Split fare and save up to 75%',
-    details: 'Book your cab together, share the fare equally, and enjoy massive savings. Track your total savings over time in your profile.',
+    title: 'Pool & Save',
+    description: 'Two ways to share, one goal',
+    details: 'No car? Book via Ola, Uber, or any cab service together with your matches. Have a car? Create a ride and share costs with co-riders. Either way, you save up to 75% while reducing emissions.',
   },
 ]
 
@@ -96,7 +97,7 @@ const scheduledSteps = [
 function HeroSection() {
   return (
     <section className="hero-viewport bg-gradient-to-br from-primary via-primary/90 to-primary-800">
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         <div className="max-w-4xl mx-auto text-center">
           {/* Title */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
@@ -153,7 +154,7 @@ function RealTimeSection() {
 
   return (
     <section id="real-time" ref={ref} className="section-padding-lg bg-white">
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -176,14 +177,35 @@ function RealTimeSection() {
           </p>
         </motion.div>
 
-        {/* Interactive walkthrough */}
-        <div className="max-w-3xl mx-auto">
-          <InteractiveWalkthrough
-            steps={realTimeSteps}
-            color="teal"
-            autoPlay={true}
-            autoPlayDelay={5000}
-          />
+        {/* Content with mockup */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+          {/* Interactive walkthrough */}
+          <div>
+            <InteractiveWalkthrough
+              steps={realTimeSteps}
+              color="teal"
+              autoPlay={true}
+              autoPlayDelay={5000}
+            />
+          </div>
+
+          {/* Phone mockup */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="hidden lg:flex justify-center"
+          >
+            <div className="relative w-[260px] xl:w-[300px]">
+              <Image
+                src="/images/mockups/iphone15/home-screen.png"
+                alt="Snapgo Real-Time Rides - Find nearby trips instantly"
+                width={300}
+                height={600}
+                className="w-full h-auto drop-shadow-2xl"
+              />
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -197,7 +219,7 @@ function ScheduledSection() {
 
   return (
     <section id="scheduled" ref={ref} className="section-padding-lg bg-gray-50">
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -220,14 +242,35 @@ function ScheduledSection() {
           </p>
         </motion.div>
 
-        {/* Interactive walkthrough */}
-        <div className="max-w-3xl mx-auto">
-          <InteractiveWalkthrough
-            steps={scheduledSteps}
-            color="primary"
-            autoPlay={true}
-            autoPlayDelay={5000}
-          />
+        {/* Content with mockup */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+          {/* Phone mockup - on left for variety */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="hidden lg:flex justify-center order-2 lg:order-1"
+          >
+            <div className="relative w-[260px] xl:w-[300px]">
+              <Image
+                src="/images/mockups/iphone15/create-trip.png"
+                alt="Snapgo Scheduled Rides - Plan your trip with date and time"
+                width={300}
+                height={600}
+                className="w-full h-auto drop-shadow-2xl"
+              />
+            </div>
+          </motion.div>
+
+          {/* Interactive walkthrough */}
+          <div className="order-1 lg:order-2">
+            <InteractiveWalkthrough
+              steps={scheduledSteps}
+              color="primary"
+              autoPlay={true}
+              autoPlayDelay={5000}
+            />
+          </div>
         </div>
       </div>
     </section>
@@ -268,7 +311,7 @@ function ComparisonSection() {
 
   return (
     <section ref={ref} className="section-padding-lg bg-white">
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -360,7 +403,7 @@ function CTASection() {
 
   return (
     <section ref={ref} className="section-padding-lg bg-gradient-to-br from-primary via-primary/90 to-teal-600">
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

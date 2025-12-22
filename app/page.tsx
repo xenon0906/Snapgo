@@ -10,6 +10,7 @@ import { CO2ImpactTracker } from '@/components/gamification/CO2ImpactTracker'
 import { SavingsCalculator } from '@/components/gamification/SavingsCalculator'
 import { HeroPremium } from '@/components/home/HeroPremium'
 import { InstagramSection } from '@/components/home/InstagramSection'
+import { CabPoolingComparison } from '@/components/home/CabPoolingComparison'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -85,7 +86,7 @@ function WhySnapgoSection() {
     {
       icon: WalletIcon,
       title: 'Save Up to 75%',
-      description: 'Split your cab fare with verified co-riders going your way',
+      description: 'Pool a cab with verified co-riders and split the fare — why pay full?',
       gradient: 'from-teal-50 to-primary-50',
       iconBg: 'bg-teal-100',
       iconBgHover: 'hover:bg-teal-200',
@@ -94,8 +95,8 @@ function WhySnapgoSection() {
     },
     {
       icon: ShieldIcon,
-      title: '100% Verified Users',
-      description: 'Aadhaar-based KYC ensures everyone on the platform is verified',
+      title: '100% Legal & Verified',
+      description: 'We pool commercial cabs (not private cars) with Aadhaar-verified riders',
       gradient: 'from-primary-50 to-purple-50',
       iconBg: 'bg-primary-100',
       iconBgHover: 'hover:bg-primary-200',
@@ -103,9 +104,9 @@ function WhySnapgoSection() {
       shadowClass: 'hover:shadow-primary/20'
     },
     {
-      icon: ClockIcon,
-      title: 'Real-Time Matching',
-      description: 'Find co-riders within 750m radius in seconds, not minutes',
+      icon: CarIcon,
+      title: 'Pool Your Way',
+      description: 'No car? Book a cab together. Have a car? Share your ride. Flexibility for everyone.',
       gradient: 'from-purple-50 to-teal-50',
       iconBg: 'bg-purple-100',
       iconBgHover: 'hover:bg-purple-200',
@@ -114,8 +115,8 @@ function WhySnapgoSection() {
     },
     {
       icon: LeafIcon,
-      title: 'Eco-Friendly Travel',
-      description: 'Reduce carbon footprint by sharing rides instead of traveling alone',
+      title: 'Green Cab Pooling',
+      description: '4 people, 1 cab = 75% less emissions. Good for you AND the planet',
       gradient: 'from-teal-50 to-primary-50',
       iconBg: 'bg-teal-100',
       iconBgHover: 'hover:bg-teal-200',
@@ -126,7 +127,7 @@ function WhySnapgoSection() {
 
   return (
     <section ref={ref} className="section-padding bg-background">
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -143,11 +144,11 @@ function WhySnapgoSection() {
             <span className="text-teal text-sm font-semibold">Why Choose Snapgo?</span>
           </motion.div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            The Smarter Way to
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal via-primary to-purple"> Commute</span>
+            Why Cab Pooling is
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal via-primary to-purple"> Smarter</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            Join thousands of verified users already saving money and reducing their carbon footprint.
+            Pool commercial cabs with verified riders. Legal, eco-friendly, and up to 75% cheaper.
           </p>
         </motion.div>
 
@@ -183,7 +184,7 @@ function WhySnapgoSection() {
           </div>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {reasons.map((reason, index) => {
             // Asymmetric: odd indices shifted up, even shifted down on desktop
             const isOdd = index % 2 !== 0
@@ -211,7 +212,7 @@ function WhySnapgoSection() {
                       exit={{ opacity: 0 }}
                     />
                   )}
-                  <Card className={`h-full border-0 bg-gradient-to-br ${reason.gradient} backdrop-blur-sm hover:shadow-2xl ${reason.shadowClass} transition-all duration-500 relative overflow-hidden`}>
+                  <Card className={`h-full min-h-[200px] border-0 bg-gradient-to-br ${reason.gradient} backdrop-blur-sm hover:shadow-2xl ${reason.shadowClass} transition-all duration-500 relative overflow-hidden`}>
                     {/* Number badge */}
                     <motion.div
                       className="absolute top-3 right-3 w-6 h-6 rounded-full bg-gray-900/10 text-xs font-bold flex items-center justify-center text-gray-700"
@@ -221,7 +222,7 @@ function WhySnapgoSection() {
                     >
                       {index + 1}
                     </motion.div>
-                    <CardContent className="p-6">
+                    <CardContent className="p-6 h-full flex flex-col">
                       <motion.div
                         whileHover={{ scale: 1.1, rotate: 5 }}
                         className={`w-14 h-14 rounded-2xl ${reason.iconBg} ${reason.iconBgHover} flex items-center justify-center mb-4 transition-colors relative`}
@@ -238,7 +239,7 @@ function WhySnapgoSection() {
                         )}
                       </motion.div>
                       <h3 className="text-xl font-bold mb-2 group-hover:text-teal transition-colors">{reason.title}</h3>
-                      <p className="text-muted-foreground text-sm">{reason.description}</p>
+                      <p className="text-muted-foreground text-sm mt-auto">{reason.description}</p>
                     </CardContent>
                   </Card>
                 </div>
@@ -289,7 +290,7 @@ function DownloadSection() {
 
   return (
     <section ref={ref} className="section-padding-lg bg-gray-50">
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -313,7 +314,7 @@ function DownloadSection() {
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8 max-w-4xl mx-auto">
           {/* Android */}
           <motion.div
             initial={{ opacity: 0, x: -50, rotateY: -10 }}
@@ -360,7 +361,7 @@ function DownloadSection() {
                 </Badge>
 
                 <Button variant="gradient" className="w-full group" size="lg" asChild>
-                  <Link href="https://play.google.com/store/apps/details?id=com.snapgo.app" target="_blank">
+                  <Link href="https://play.google.com/store/apps/details?id=in.snapgo.app&hl=en_IN" target="_blank">
                     <DownloadIcon className="w-5 h-5 mr-2 group-hover:animate-bounce" />
                     Download for Android
                   </Link>
@@ -415,7 +416,7 @@ function DownloadSection() {
                 </Badge>
 
                 <Button variant="gradient" className="w-full group" size="lg" asChild>
-                  <Link href="https://apps.apple.com/app/snapgo/id6739696498" target="_blank">
+                  <Link href="https://apps.apple.com/in/app/snapgo-connect-split-fare/id6748761741" target="_blank">
                     <DownloadIcon className="w-5 h-5 mr-2 group-hover:animate-bounce" />
                     Download for iOS
                   </Link>
@@ -436,7 +437,7 @@ function CTASection() {
 
   return (
     <section ref={ref} className="section-padding-lg bg-[#0e4493]">
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -520,15 +521,15 @@ function AppPreviewSection() {
   const isInView = useInView(containerRef, { once: true, margin: '-100px' })
 
   const screens = [
-    { file: 'home-screen', label: 'Home Screen', description: 'Find rides instantly' },
-    { file: 'search-trip', label: 'Search Trip', description: 'Smart matching' },
-    { file: 'create-trip', label: 'Create Trip', description: 'Share your ride' },
-    { file: 'my-trips', label: 'My Trips', description: 'Track everything' },
+    { file: 'iphone15/trip-details', label: 'Trip Details', description: 'View & join trips' },
+    { file: 'iphone15/trip-chat', label: 'Trip Chat', description: 'Chat with riders' },
+    { file: 'iphone15/in-app-calling', label: 'In-App Calling', description: 'Call co-riders' },
+    { file: 'iphone15/profile-verified', label: 'Your Profile', description: 'KYC verified' },
   ]
 
   return (
     <section ref={containerRef} className="section-padding-lg bg-white">
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -553,9 +554,11 @@ function AppPreviewSection() {
         </motion.div>
 
         {/* Phone mockups */}
-        <div className="flex justify-center items-end gap-4 md:gap-8 overflow-x-auto pb-8 no-scrollbar px-4">
+        <div className="flex justify-center items-end gap-2 sm:gap-4 md:gap-6 lg:gap-8 pb-8 px-4 max-w-full overflow-hidden">
           {screens.map((screen, index) => {
-            const isCenter = index === 1 || index === 2
+            const isCenter = index === 1 || index === 2 // Center phones are slightly larger
+            // Progressive visibility: 2 on mobile, 4 on sm+
+            const visibilityClass = index >= 2 ? 'hidden sm:block' : ''
 
             return (
               <motion.div
@@ -564,28 +567,23 @@ function AppPreviewSection() {
                 animate={isInView ? { opacity: 1, y: 0, rotateY: 0 } : {}}
                 transition={{ duration: 0.25, delay: index * 0.03, ease: [0.34, 1.56, 0.64, 1] }}
                 whileHover={{ y: -20, scale: 1.05, rotateY: 5 }}
-                className="flex-shrink-0 group cursor-pointer"
+                className={`flex-shrink-0 group cursor-pointer ${visibilityClass}`}
                 style={{ perspective: 1000 }}
               >
-                <div className={`relative ${isCenter ? 'w-48 md:w-60' : 'w-40 md:w-48'} aspect-[9/19] rounded-[2.5rem] overflow-hidden shadow-2xl group-hover:shadow-teal/20 transition-all duration-500`}>
-                  {/* Phone frame */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-gray-800 to-gray-900 rounded-[2.5rem]" />
-                  {/* Screen */}
-                  <div className="absolute inset-[3px] rounded-[2.3rem] overflow-hidden bg-black">
-                    {/* Notch */}
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-b-2xl z-20" />
-                    <Image
-                      src={`/images/mockups/${screen.file}.png`}
-                      alt={`Snapgo ${screen.label}`}
-                      fill
-                      className="object-cover"
-                    />
-                    {/* Overlay gradient on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                      <div className="text-white text-center w-full">
-                        <p className="font-semibold">{screen.label}</p>
-                        <p className="text-xs text-white/70">{screen.description}</p>
-                      </div>
+                {/* iPhone 15 frame already in image - just display it */}
+                <div className={`relative ${isCenter ? 'w-40 sm:w-48 md:w-56 lg:w-64' : 'w-36 sm:w-40 md:w-48 lg:w-52'} group-hover:drop-shadow-xl transition-all duration-500`}>
+                  <Image
+                    src={`/images/mockups/${screen.file}.png`}
+                    alt={`Snapgo ${screen.label}`}
+                    width={260}
+                    height={520}
+                    className="w-full h-auto drop-shadow-2xl"
+                  />
+                  {/* Overlay gradient on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-[2rem] flex items-end p-4">
+                    <div className="text-white text-center w-full">
+                      <p className="font-semibold">{screen.label}</p>
+                      <p className="text-xs text-white/70">{screen.description}</p>
                     </div>
                   </div>
                 </div>
@@ -684,6 +682,18 @@ export default function HomePage() {
         transition={{ duration: 0.6, delay: 0.2, ease: [0.34, 1.56, 0.64, 1] }}
       >
         <WhySnapgoSection />
+      </motion.div>
+
+      {/* Cab Pooling vs Carpooling Comparison */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{
+          opacity: contentRevealed ? 1 : 0,
+          y: contentRevealed ? 0 : 30
+        }}
+        transition={{ duration: 0.6, delay: 0.25, ease: [0.34, 1.56, 0.64, 1] }}
+      >
+        <CabPoolingComparison />
       </motion.div>
 
       {/* Stats Counter Section */}

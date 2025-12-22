@@ -35,7 +35,7 @@ function estimateReadTime(excerpt: string | null): string {
 function BlogHero({ onScrollDown }: { onScrollDown: () => void }) {
   return (
     <section className="hero-viewport bg-gradient-to-br from-primary via-primary/90 to-primary-800">
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         <div className="max-w-4xl mx-auto text-center">
           {/* Title */}
           <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-6 flex items-center justify-center gap-3 sm:gap-4 md:gap-5 flex-wrap">
@@ -276,7 +276,7 @@ export function BlogList({ blogs }: { blogs: Blog[] }) {
 
       {/* Blog Content */}
       <section ref={contentRef} className="py-16 md:py-24 bg-gray-50">
-        <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
+        <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
           {blogs.length > 0 ? (
             <div className="max-w-5xl mx-auto">
               {/* Featured article */}

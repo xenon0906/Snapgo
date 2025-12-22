@@ -26,7 +26,7 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps =
 
   const slideVariants = {
     enter: (direction: number) => ({
-      x: direction > 0 ? 300 : -300,
+      x: direction > 0 ? '100%' : '-100%',
       opacity: 0,
       scale: 0.9,
     }),
@@ -38,7 +38,7 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps =
     },
     exit: (direction: number) => ({
       zIndex: 0,
-      x: direction < 0 ? 300 : -300,
+      x: direction < 0 ? '100%' : '-100%',
       opacity: 0,
       scale: 0.9,
     }),

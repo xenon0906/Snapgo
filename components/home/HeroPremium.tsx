@@ -45,9 +45,9 @@ function AnimatedMetric({ value, suffix = '', label, isEco = false }: { value: n
 // Default hero content
 const DEFAULT_HERO: HeroContentData = {
   id: 'default',
-  headline: 'Share Rides. Save More.',
-  subtext: 'Connect with verified co-riders heading your way. Save up to 75% on your daily commute while reducing your carbon footprint.',
-  badge: "India's #1 Ride-Sharing Platform",
+  headline: 'Pool Cabs. Save Money. Go Green.',
+  subtext: 'Pool and go — with or without a car. Match with verified co-riders, share the journey, and save up to 75%. Join India\'s greenest commuting movement.',
+  badge: "India's #1 Cab Pooling Platform",
   ctaPrimary: 'Download App',
   ctaSecondary: 'Watch Demo',
   isActive: true,
@@ -63,20 +63,21 @@ export function HeroPremium({ hero }: HeroPremiumProps = {}) {
   // Impact metrics - Rapido style
   const metrics = [
     { value: 8500, suffix: '+', label: 'Downloads' },
-    { value: 150, suffix: '+', label: 'Daily Rides' },
-    { value: 500, suffix: '+', label: 'Trees Saved', isEco: true },
+    { value: 150, suffix: '+', label: 'Cabs Pooled Daily' },
+    { value: 75, suffix: '%', label: 'Less Emissions', isEco: true },
   ]
 
   return (
     <section className="hero-viewport bg-white">
       <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-16 items-center">
           {/* Left content */}
           <div className="text-center lg:text-left">
             {/* Bold stacked headline - Rapido inspired */}
             <h1 className="text-[1.75rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight mb-6">
-              <span className="text-gray-900 block whitespace-nowrap">Share Rides.</span>
+              <span className="text-gray-900 block whitespace-nowrap">Pool Cabs.</span>
               <span className="text-[#0e4493] block whitespace-nowrap">Save ₹12,000/year.</span>
+              <span className="text-emerald-500 block whitespace-nowrap text-lg sm:text-2xl md:text-3xl lg:text-4xl mt-2">Go Green.</span>
             </h1>
 
             {/* Subheadline - clean, single paragraph */}
@@ -132,23 +133,17 @@ export function HeroPremium({ hero }: HeroPremiumProps = {}) {
             </div>
           </div>
 
-          {/* Right side - Phone mockup like App Preview section */}
+          {/* Right side - Phone mockup (iPhone 15 frame already in image) */}
           <div className="flex justify-center lg:justify-end">
-            <div className="relative w-[200px] xs:w-[220px] sm:w-[247px] md:w-[285px] lg:w-[304px] max-w-[70vw] aspect-[9/19] rounded-[2.5rem] overflow-hidden shadow-2xl">
-              {/* Phone frame */}
-              <div className="absolute inset-0 bg-gradient-to-b from-gray-800 to-gray-900 rounded-[2.5rem]" />
-              {/* Screen */}
-              <div className="absolute inset-[3px] rounded-[2.3rem] overflow-hidden bg-black">
-                {/* Notch */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-b-2xl z-20" />
-                <Image
-                  src="/images/mockups/home-screen.png"
-                  alt="Snapgo App"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
+            <div className="relative w-[190px] xs:w-[210px] sm:w-[230px] md:w-[275px] lg:w-[315px] max-w-[55vw] sm:max-w-[45vw] lg:max-w-[70vw]">
+              <Image
+                src="/images/mockups/iphone15/home-screen.png"
+                alt="Snapgo App"
+                width={300}
+                height={600}
+                className="w-full h-auto drop-shadow-2xl"
+                priority
+              />
             </div>
           </div>
         </div>

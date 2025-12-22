@@ -33,12 +33,12 @@
   "related_applications": [
     {
       "platform": "play",
-      "url": "https://play.google.com/store/apps/details?id=com.snapgo.app",
-      "id": "com.snapgo.app"
+      "url": "https://play.google.com/store/apps/details?id=in.snapgo.app&hl=en_IN",
+      "id": "in.snapgo.app"
     },
     {
       "platform": "itunes",
-      "url": "https://apps.apple.com/app/snapgo/id6739696498"
+      "url": "https://apps.apple.com/in/app/snapgo-connect-split-fare/id6748761741"
     }
   ],
   "prefer_related_applications": true

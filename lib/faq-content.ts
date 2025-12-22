@@ -49,6 +49,24 @@ export const FAQ_ITEMS: FAQItemType[] = [
       'Currently, Snapgo is optimized for intracity travel and daily commutes. We\'re working on expanding our service to support intercity ride-sharing in the future. Stay tuned for updates!',
     category: 'General',
   },
+  {
+    question: 'What if I don\'t have a car?',
+    answer:
+      'No problem! Find verified co-riders heading your way, meet up, and book a cab together via Ola, Uber, or any service you prefer. Split the fare and save up to 75% — no car needed.',
+    category: 'General',
+  },
+  {
+    question: 'Can I offer rides if I have a car?',
+    answer:
+      'Yes! Car owners can create rides and offer seats to verified co-riders heading the same direction. Share the journey and costs with others while helping reduce traffic and emissions.',
+    category: 'General',
+  },
+  {
+    question: 'What\'s the difference between pooling with and without a car?',
+    answer:
+      'Both options help you save money and reduce emissions. Without a car, you match with co-riders and book a cab together. With a car, you create a ride for others to join. Either way, you\'re part of India\'s greenest commuting community.',
+    category: 'General',
+  },
 
   // Safety Questions
   {

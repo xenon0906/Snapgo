@@ -4,8 +4,8 @@ import { requireAuth } from '@/lib/api-auth'
 import { revalidateTag } from 'next/cache'
 
 const DEFAULT_APPS = {
-  android: { url: 'https://play.google.com/store/apps/details?id=com.snapgo.app', isLive: true, qrCodeUrl: '/images/qr code/playstore-qr.png' },
-  ios: { url: 'https://apps.apple.com/app/snapgo/id6739696498', isLive: true, qrCodeUrl: '/images/qr code/appstore-qr.png' },
+  android: { url: 'https://play.google.com/store/apps/details?id=in.snapgo.app&hl=en_IN', isLive: true, qrCodeUrl: '/images/qr code/playstore-qr.png' },
+  ios: { url: 'https://apps.apple.com/in/app/snapgo-connect-split-fare/id6748761741', isLive: true, qrCodeUrl: '/images/qr code/appstore-qr.png' },
 }
 
 // GET - Fetch app store links

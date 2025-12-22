@@ -29,8 +29,8 @@ function SafetyHero() {
 
   return (
     <section className="hero-viewport bg-gradient-to-br from-primary via-primary/90 to-primary-800">
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left - Content */}
           <div className="text-center lg:text-left">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
@@ -72,23 +72,17 @@ function SafetyHero() {
             </div>
           </div>
 
-          {/* Right - Phone mockup like App Preview section */}
+          {/* Right - Phone mockup (iPhone 15 frame already in image) */}
           <div className="flex justify-center lg:justify-end">
-            <div className="relative w-[247px] sm:w-[285px] aspect-[9/19] rounded-[2.5rem] overflow-hidden shadow-2xl">
-              {/* Phone frame */}
-              <div className="absolute inset-0 bg-gradient-to-b from-gray-800 to-gray-900 rounded-[2.5rem]" />
-              {/* Screen */}
-              <div className="absolute inset-[3px] rounded-[2.3rem] overflow-hidden bg-black">
-                {/* Notch */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-b-2xl z-20" />
-                <Image
-                  src="/images/mockups/home-screen.png"
-                  alt="Snapgo App - Safety Features"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
+            <div className="relative w-[220px] sm:w-[260px] md:w-[280px] lg:w-[300px]">
+              <Image
+                src="/images/mockups/iphone15/emergency-sos.png"
+                alt="Snapgo App - Emergency SOS Feature"
+                width={300}
+                height={600}
+                className="w-full h-auto drop-shadow-2xl"
+                priority
+              />
             </div>
           </div>
         </div>
@@ -113,7 +107,7 @@ function ChecklistSection() {
         }}
       />
 
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32 relative z-10">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 relative z-10">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -165,7 +159,7 @@ function SOSSection() {
 
   return (
     <section ref={ref} className="section-padding bg-gray-900 text-white">
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         {/* Header */}
         <div className="text-center mb-16">
           <div className="w-16 h-16 rounded-2xl bg-red-500/20 flex items-center justify-center mx-auto mb-6">
@@ -246,7 +240,7 @@ function TrustSection() {
 
   return (
     <section ref={ref} className="section-padding bg-white">
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -288,7 +282,7 @@ function TrustSection() {
 function CTASection() {
   return (
     <section className="section-padding-lg bg-gradient-to-br from-primary to-teal-600">
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         <div className="text-center max-w-3xl mx-auto">
           <div className="w-20 h-20 rounded-2xl bg-white/10 flex items-center justify-center mx-auto mb-8">
             <ShieldCheck className="w-10 h-10 text-white" />

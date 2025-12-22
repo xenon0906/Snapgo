@@ -52,7 +52,7 @@ function FeatureCard({ feature, index }: { feature: FeatureType; index: number }
       className="h-full transition-transform duration-200"
     >
       <GlowHighlight isActive={isHovered} color="primary" intensity="medium">
-        <Card className="h-full group hover:shadow-xl hover:shadow-primary/10 hover:border-primary/30 transition-all duration-200 cursor-pointer relative">
+        <Card className="h-full min-h-[200px] group hover:shadow-xl hover:shadow-primary/10 hover:border-primary/30 transition-all duration-200 cursor-pointer relative">
           {/* Spotlight effect - contained in its own wrapper */}
           <div className="absolute inset-0 overflow-hidden rounded-lg pointer-events-none">
             <div
@@ -65,11 +65,11 @@ function FeatureCard({ feature, index }: { feature: FeatureType; index: number }
             />
           </div>
 
-          <CardContent className="p-4 sm:p-6 relative">
+          <CardContent className="p-4 sm:p-6 relative h-full flex flex-col">
             {/* Background gradient on hover */}
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-teal/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg overflow-hidden" />
 
-            <div className="relative z-10" style={{ transform: 'translateZ(30px)' }}>
+            <div className="relative z-10 flex flex-col flex-1" style={{ transform: 'translateZ(30px)' }}>
               {/* Feature number badge */}
               <motion.div
                 className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20"

@@ -102,8 +102,8 @@ const defaultSettings: SiteSettings = {
     values: '',
   },
   apps: {
-    androidUrl: 'https://play.google.com/store/apps/details?id=com.snapgo.app',
-    iosUrl: 'https://apps.apple.com/app/snapgo/id6739696498',
+    androidUrl: 'https://play.google.com/store/apps/details?id=in.snapgo.app&hl=en_IN',
+    iosUrl: 'https://apps.apple.com/in/app/snapgo-connect-split-fare/id6748761741',
     androidLive: true,
     iosLive: true,
   },
