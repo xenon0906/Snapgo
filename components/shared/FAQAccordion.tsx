@@ -82,7 +82,7 @@ function FAQItemComponent({
         onClick={onToggle}
       >
         {/* Question Header */}
-        <div className="flex items-start justify-between p-6 gap-4">
+        <div className="flex items-start justify-between p-4 sm:p-6 gap-3 sm:gap-4">
           {/* Number badge */}
           <motion.div
             className={cn(
@@ -99,7 +99,7 @@ function FAQItemComponent({
           <div className="flex-1">
             <h3
               className={cn(
-                'font-semibold text-left text-lg transition-colors duration-200',
+                'font-semibold text-left text-base sm:text-lg transition-colors duration-200',
                 isOpen && 'text-primary'
               )}
             >

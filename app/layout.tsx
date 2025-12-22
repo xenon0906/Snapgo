@@ -144,7 +144,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-screen bg-background antialiased" suppressHydrationWarning>
+      <body className="min-h-screen-dynamic bg-background antialiased" suppressHydrationWarning>
         <GoogleAnalytics />
         <ThemeProvider>
           <SettingsProvider>

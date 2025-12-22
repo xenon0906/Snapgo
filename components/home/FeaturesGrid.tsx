@@ -65,7 +65,7 @@ function FeatureCard({ feature, index }: { feature: FeatureType; index: number }
             />
           </div>
 
-          <CardContent className="p-6 relative">
+          <CardContent className="p-4 sm:p-6 relative">
             {/* Background gradient on hover */}
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-teal/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg overflow-hidden" />
 
@@ -81,11 +81,11 @@ function FeatureCard({ feature, index }: { feature: FeatureType; index: number }
               </motion.div>
 
               <motion.div
-                className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-all duration-200 relative"
+                className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-all duration-200 relative"
                 whileHover={{ scale: 1.05, rotate: 3 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
               >
-                <Icon className="w-7 h-7 text-primary" />
+                <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />
                 {/* Pulse ring on hover */}
                 {isHovered && (
                   <motion.div
@@ -97,7 +97,7 @@ function FeatureCard({ feature, index }: { feature: FeatureType; index: number }
                 )}
               </motion.div>
 
-              <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors duration-200">
+              <h3 className="text-lg sm:text-xl font-semibold mb-2 group-hover:text-primary transition-colors duration-200">
                 {feature.title}
               </h3>
 
@@ -136,16 +136,16 @@ export function FeaturesGrid({ features }: FeaturesGridProps = {}) {
       {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-primary/5 blur-3xl"
+          className="hidden sm:block absolute -top-40 -right-40 w-48 h-48 md:w-80 md:h-80 rounded-full bg-primary/5 blur-3xl"
           style={{ y }}
         />
         <motion.div
-          className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full bg-teal/5 blur-3xl"
+          className="hidden sm:block absolute -bottom-40 -left-40 w-48 h-48 md:w-80 md:h-80 rounded-full bg-teal/5 blur-3xl"
           style={{ y: useTransform(scrollYProgress, [0, 1], [-50, 50]) }}
         />
       </div>
 
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32 relative z-10">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -160,10 +160,10 @@ export function FeaturesGrid({ features }: FeaturesGridProps = {}) {
           >
             Features
           </motion.span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
             Why Choose <span className="text-primary">Snapgo</span>?
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+          <p className="text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg">
             Experience the smarter way to travel with features designed for your safety, savings, and convenience.
           </p>
         </motion.div>
@@ -188,7 +188,7 @@ export function FeaturesGrid({ features }: FeaturesGridProps = {}) {
           </div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {displayFeatures.map((feature, index) => (
             <motion.div
               key={feature.title}

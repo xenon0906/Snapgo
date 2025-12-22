@@ -40,7 +40,7 @@ export function FareCalculator() {
 
   return (
     <section ref={containerRef} className="py-20 bg-background">
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -65,7 +65,7 @@ export function FareCalculator() {
               <CardContent className="p-0">
                 <div className="grid md:grid-cols-2">
                   {/* Input section */}
-                  <div className="p-8 bg-muted/50">
+                  <div className="p-4 sm:p-6 md:p-8 bg-muted/50">
                     <div className="space-y-8">
                       {/* Total fare slider */}
                       <div className="space-y-4">
@@ -100,7 +100,7 @@ export function FareCalculator() {
                               key={num}
                               variant={riders === num ? 'default' : 'outline'}
                               className={cn(
-                                'flex-1 h-12 text-lg font-bold',
+                                'flex-1 h-10 sm:h-12 text-base sm:text-lg font-bold',
                                 riders === num && 'bg-primary text-white hover:bg-primary/90'
                               )}
                               onClick={() => setRiders(num)}
@@ -114,7 +114,7 @@ export function FareCalculator() {
                   </div>
 
                   {/* Results section */}
-                  <div className="p-8 bg-gradient-to-br from-primary to-secondary text-white relative overflow-hidden">
+                  <div className="p-4 sm:p-6 md:p-8 bg-gradient-to-br from-primary to-secondary text-white relative overflow-hidden">
                     {/* Background pattern */}
                     <div className="absolute inset-0 opacity-10">
                       <div className="absolute inset-0" style={{
@@ -126,7 +126,7 @@ export function FareCalculator() {
                     <div className="relative z-10 space-y-6">
                       {/* Pie chart visualization */}
                       <div className="flex justify-center mb-6">
-                        <div className="relative w-32 h-32">
+                        <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32">
                           <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
                             {pieSegments.map((segment, i) => {
                               const radius = 40
@@ -169,24 +169,24 @@ export function FareCalculator() {
                           className="space-y-4"
                         >
                           <div className="text-center">
-                            <div className="text-white/90 text-sm mb-1">You pay only</div>
-                            <div className="text-5xl font-bold">
+                            <div className="text-white/90 text-xs sm:text-sm mb-1">You pay only</div>
+                            <div className="text-3xl sm:text-4xl md:text-5xl font-bold">
                               ₹{calculations.perPerson}
                             </div>
-                            <div className="text-white/90 text-sm mt-1">
+                            <div className="text-white/90 text-xs sm:text-sm mt-1">
                               instead of ₹{totalFare}
                             </div>
                           </div>
 
-                          <div className="flex items-center justify-center gap-3 p-4 bg-white/10 rounded-xl">
-                            <Sparkles className="w-6 h-6 text-accent" />
+                          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 p-3 sm:p-4 bg-white/10 rounded-xl">
+                            <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-accent" />
                             <div>
-                              <span className="text-2xl font-bold text-accent">
+                              <span className="text-lg sm:text-xl md:text-2xl font-bold text-accent">
                                 ₹{calculations.savings}
                               </span>
-                              <span className="text-white ml-2">saved</span>
+                              <span className="text-white text-sm sm:text-base ml-1 sm:ml-2">saved</span>
                             </div>
-                            <span className="px-3 py-1 bg-accent text-dark text-sm font-bold rounded-full">
+                            <span className="px-2 sm:px-3 py-1 bg-accent text-dark text-xs sm:text-sm font-bold rounded-full">
                               {calculations.savingsPercent}% OFF
                             </span>
                           </div>

@@ -44,14 +44,14 @@ export function Footer() {
   return (
     <footer className="bg-dark text-white">
       {/* Main Footer */}
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32 py-16">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 py-12 sm:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-block mb-6">
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="relative w-40 h-40"
+                className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32"
               >
                 <Image
                   src="/images/logo/Snapgo%20Logo%20White.png"
@@ -151,27 +151,32 @@ export function Footer() {
 
       {/* Certifications Bar */}
       <div className="border-t border-white/10">
-        <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32 py-6">
-          <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/60">
+        <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 py-4 sm:py-6">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-6 text-sm text-white/60">
             <div className="flex items-center gap-2">
-              <span className="px-3 py-1 bg-primary/20 text-primary rounded-full text-xs font-semibold">
+              <span className="px-2 sm:px-3 py-1 bg-primary/20 text-primary rounded-full text-[10px] sm:text-xs font-semibold">
                 DPIIT Certified
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="px-3 py-1 bg-primary/20 text-primary-foreground rounded-full text-xs font-semibold">
+              <span className="px-2 sm:px-3 py-1 bg-primary/20 text-primary-foreground rounded-full text-[10px] sm:text-xs font-semibold">
                 Startup India
               </span>
             </div>
-            <span>|</span>
-            <span>{SITE_CONFIG.legalName}</span>
+            <div className="flex items-center gap-2">
+              <span className="px-2 sm:px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-[10px] sm:text-xs font-semibold">
+                Startup Uttarakhand
+              </span>
+            </div>
+            <span className="hidden sm:inline">|</span>
+            <span className="text-xs sm:text-sm">{SITE_CONFIG.legalName}</span>
           </div>
         </div>
       </div>
 
       {/* Copyright Bar */}
       <div className="border-t border-white/10">
-        <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32 py-4">
+        <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 py-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-white/50">
             <p>© {currentYear} {SITE_CONFIG.name}. All rights reserved.</p>
             <div className="flex gap-6">

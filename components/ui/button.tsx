@@ -22,10 +22,10 @@ const buttonVariants = cva(
       },
       size: {
         default: 'h-10 px-5 py-2',
-        sm: 'h-9 rounded-lg px-4',
+        sm: 'h-10 rounded-lg px-4',
         lg: 'h-12 rounded-xl px-8 text-base',
         xl: 'h-14 rounded-xl px-10 text-lg',
-        icon: 'h-10 w-10 rounded-lg',
+        icon: 'h-11 w-11 rounded-lg',
       },
     },
     defaultVariants: {

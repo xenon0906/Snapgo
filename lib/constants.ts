@@ -21,10 +21,10 @@ export const HERO_CONTENT = {
 }
 
 export const STATS = [
-  { label: 'App Downloads', value: 7000, suffix: '+', prefix: '' },
-  { label: 'Peak Daily Rides', value: 110, suffix: '+', prefix: '' },
+  { label: 'App Downloads', value: 8500, suffix: '+', prefix: '' },
+  { label: 'Peak Daily Rides', value: 150, suffix: '+', prefix: '' },
   { label: 'Cost Savings', value: 75, suffix: '%', prefix: '' },
-  { label: 'Active Users', value: 400, suffix: '+', prefix: '' },
+  { label: 'Trees Equivalent', value: 500, suffix: '+', prefix: '', isEco: true },
 ]
 
 export const FEATURES = [
@@ -110,17 +110,17 @@ export const ABOUT_STORY = {
 export const JOURNEY_TIMELINE = [
   {
     title: 'WhatsApp Pilot',
-    description: '7000+ members in playstore app, proving the concept works',
+    description: '1000+ members in pilot group, proving the concept works',
     icon: 'MessageCircle',
   },
   {
-    title: '110+ Daily Rides',
-    description: 'Peak of 10+ shared rides during exam days in pilot project',
+    title: '150+ Daily Rides',
+    description: 'Peak daily rides achieved during pilot project',
     icon: 'Car',
   },
   {
-    title: 'Startup India',
-    description: 'Officially recognized by Startup India initiative and received DPIIT number',
+    title: 'Startup Recognition',
+    description: 'Officially recognized by Startup India, Startup Uttarakhand & received DPIIT number',
     icon: 'Award',
   },
   {

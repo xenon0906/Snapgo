@@ -111,7 +111,7 @@ export function PageHero({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.25, ease: [0.34, 1.56, 0.64, 1] }}
-            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight text-foreground"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight text-foreground"
           >
             {title}
             {titleHighlight && (

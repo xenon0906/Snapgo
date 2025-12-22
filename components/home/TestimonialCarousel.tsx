@@ -70,7 +70,7 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps =
 
   return (
     <section ref={containerRef} className="py-20 bg-dark overflow-hidden">
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -124,7 +124,7 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps =
                 onDragEnd={handleDragEnd}
                 className="cursor-grab active:cursor-grabbing"
               >
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 md:p-12 border border-white/20">
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 sm:p-6 md:p-8 lg:p-12 border border-white/20">
                   {/* Quote icon */}
                   <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mb-6 mx-auto">
                     <Quote className="w-8 h-8 text-primary" />
@@ -138,7 +138,7 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps =
                   </div>
 
                   {/* Quote text */}
-                  <blockquote className="text-xl md:text-2xl text-white text-center mb-8 leading-relaxed">
+                  <blockquote className="text-base sm:text-lg md:text-xl lg:text-2xl text-white text-center mb-6 sm:mb-8 leading-relaxed">
                     "{displayTestimonials[currentIndex].quote}"
                   </blockquote>
 

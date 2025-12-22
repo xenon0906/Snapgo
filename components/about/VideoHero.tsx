@@ -129,6 +129,7 @@ export function VideoHero({
               { label: 'Featured on TV', icon: '📺' },
               { label: 'DPIIT Recognized', icon: '🏆' },
               { label: 'Startup India', icon: '🚀' },
+              { label: 'Startup Uttarakhand', icon: '🌿' },
             ].map((item, index) => (
               <motion.div
                 key={item.label}

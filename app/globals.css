@@ -617,8 +617,8 @@
 
 /* Feature Section Dots Navigation */
 .feature-dots {
-  @apply fixed right-8 top-1/2 transform -translate-y-1/2 z-50;
-  @apply flex flex-col gap-3;
+  @apply hidden lg:flex lg:fixed right-8 top-1/2 transform -translate-y-1/2 z-50;
+  @apply flex-col gap-3;
 }
 
 .feature-dot {
@@ -663,4 +663,14 @@
   @apply w-20 h-20 rounded-full bg-white/90 flex items-center justify-center;
   @apply transition-transform duration-300;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Reduced Motion Support for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -49,11 +49,12 @@ function AnimatedCounter({ value, prefix = '', suffix = '', duration = 2.5 }: An
 }
 
 // Stat type for compatibility
-type StatType = StatisticData | typeof STATS[0]
+type StatType = StatisticData | (typeof STATS[0] & { isEco?: boolean })
 
 // Individual stat card with hover effects
 function StatCard({ stat, index, isInView }: { stat: StatType; index: number; isInView: boolean }) {
   const [isHovered, setIsHovered] = useState(false)
+  const isEco = 'isEco' in stat && stat.isEco
 
   return (
     <motion.div
@@ -76,18 +77,27 @@ function StatCard({ stat, index, isInView }: { stat: StatType; index: number; is
         {/* Animated glow effect */}
         <motion.div
           className="absolute inset-0 blur-3xl rounded-full"
-          style={{ background: 'radial-gradient(circle, rgba(0, 102, 179, 0.3) 0%, transparent 70%)' }}
+          style={{ background: isEco
+            ? 'radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(0, 102, 179, 0.3) 0%, transparent 70%)'
+          }}
           animate={isHovered ? { scale: 1.4, opacity: 0.6 } : { scale: 1, opacity: 0.2 }}
           transition={{ duration: 0.3 }}
         />
 
-        <div className="relative bg-white/20 backdrop-blur-md rounded-2xl p-6 md:p-8 border border-white/30 hover:border-white/50 transition-all duration-300 group">
+        <div className={`relative backdrop-blur-md rounded-2xl p-4 sm:p-6 md:p-8 border transition-all duration-300 group ${
+          isEco
+            ? 'bg-emerald-500/20 border-emerald-400/40 hover:border-emerald-400/60'
+            : 'bg-white/20 border-white/30 hover:border-white/50'
+        }`}>
           {/* Inner glow on hover */}
-          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+            isEco ? 'from-emerald-400/20 to-transparent' : 'from-white/10 to-transparent'
+          }`} />
 
           <div className="relative z-10">
             <motion.div
-              className="text-4xl md:text-5xl font-bold text-white mb-2"
+              className={`text-3xl sm:text-4xl md:text-5xl font-bold mb-1 sm:mb-2 ${isEco ? 'text-emerald-300' : 'text-white'}`}
               animate={isHovered ? { y: -3 } : { y: 0 }}
               transition={{ duration: 0.2 }}
             >
@@ -98,7 +108,7 @@ function StatCard({ stat, index, isInView }: { stat: StatType; index: number; is
               />
             </motion.div>
             <motion.div
-              className="text-white/90 text-sm md:text-base font-medium"
+              className={`text-xs sm:text-sm md:text-base font-medium leading-tight ${isEco ? 'text-emerald-200' : 'text-white/90'}`}
               animate={isHovered ? { y: -2 } : { y: 0 }}
               transition={{ duration: 0.2, delay: 0.03 }}
             >
@@ -133,9 +143,9 @@ export function StatsCounter({ stats }: StatsCounterProps = {}) {
   return (
     <section ref={containerRef} className="py-20 bg-gradient-to-br from-primary to-primary/90 relative overflow-hidden">
       {/* Animated mesh gradient background */}
-      <div className="absolute inset-0 opacity-25">
+      <div className="absolute inset-0 opacity-25 overflow-hidden">
         <motion.div
-          className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-white/20 blur-[100px]"
+          className="hidden md:block absolute top-0 left-1/4 w-[300px] h-[300px] lg:w-[500px] lg:h-[500px] rounded-full bg-white/20 blur-[100px]"
           animate={{
             x: [0, 30, 0],
             y: [0, 20, 0],
@@ -144,7 +154,7 @@ export function StatsCounter({ stats }: StatsCounterProps = {}) {
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
-          className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-white/15 blur-[80px]"
+          className="hidden md:block absolute bottom-0 right-1/4 w-[250px] h-[250px] lg:w-[400px] lg:h-[400px] rounded-full bg-white/15 blur-[80px]"
           animate={{
             x: [0, -20, 0],
             y: [0, -25, 0],
@@ -188,7 +198,7 @@ export function StatsCounter({ stats }: StatsCounterProps = {}) {
         />
       ))}
 
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32 relative z-10">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

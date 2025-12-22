@@ -9,7 +9,7 @@ import { Download, ArrowRight, Play } from 'lucide-react'
 import { HeroContentData } from '@/lib/content'
 
 // Animated counter component - Rapido style
-function AnimatedMetric({ value, suffix = '', label }: { value: number; suffix?: string; label: string }) {
+function AnimatedMetric({ value, suffix = '', label, isEco = false }: { value: number; suffix?: string; label: string; isEco?: boolean }) {
   const [count, setCount] = useState(0)
   const [hasAnimated, setHasAnimated] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
@@ -34,10 +34,10 @@ function AnimatedMetric({ value, suffix = '', label }: { value: number; suffix?:
 
   return (
     <div ref={ref} className="text-center">
-      <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900">
+      <div className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold ${isEco ? 'text-emerald-500' : 'text-gray-900'}`}>
         {count.toLocaleString()}{suffix}
       </div>
-      <div className="text-sm md:text-base text-gray-500 mt-1">{label}</div>
+      <div className={`text-xs sm:text-sm md:text-base mt-1 ${isEco ? 'text-emerald-600' : 'text-gray-500'}`}>{label}</div>
     </div>
   )
 }
@@ -62,14 +62,14 @@ export function HeroPremium({ hero }: HeroPremiumProps = {}) {
 
   // Impact metrics - Rapido style
   const metrics = [
-    { value: 8500, suffix: '+', label: 'Users' },
-    { value: 75, suffix: '%', label: 'Savings' },
-    { value: 110, suffix: '+', label: 'Daily Rides' },
+    { value: 8500, suffix: '+', label: 'Downloads' },
+    { value: 150, suffix: '+', label: 'Daily Rides' },
+    { value: 500, suffix: '+', label: 'Trees Saved', isEco: true },
   ]
 
   return (
     <section className="hero-viewport bg-white">
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left content */}
           <div className="text-center lg:text-left">
@@ -85,13 +85,14 @@ export function HeroPremium({ hero }: HeroPremiumProps = {}) {
             </p>
 
             {/* Impact Metrics Row - Rapido style */}
-            <div className="flex justify-center lg:justify-start gap-8 md:gap-12 mb-10 py-6 border-y border-gray-100">
+            <div className="flex justify-center lg:justify-start gap-4 sm:gap-6 md:gap-10 lg:gap-12 mb-10 py-6 border-y border-gray-100">
               {metrics.map((metric) => (
                 <AnimatedMetric
                   key={metric.label}
                   value={metric.value}
                   suffix={metric.suffix}
                   label={metric.label}
+                  isEco={metric.isEco}
                 />
               ))}
             </div>
@@ -114,7 +115,7 @@ export function HeroPremium({ hero }: HeroPremiumProps = {}) {
                 className="w-full sm:w-auto border-gray-300 hover:bg-gray-50 px-8"
                 asChild
               >
-                <Link href="/how-it-works">
+                <Link href="/about">
                   <Play className="w-5 h-5 mr-2" />
                   {displayHero.ctaSecondary || 'Watch Demo'}
                 </Link>
@@ -133,7 +134,7 @@ export function HeroPremium({ hero }: HeroPremiumProps = {}) {
 
           {/* Right side - Phone mockup like App Preview section */}
           <div className="flex justify-center lg:justify-end">
-            <div className="relative w-[247px] md:w-[285px] lg:w-[304px] aspect-[9/19] rounded-[2.5rem] overflow-hidden shadow-2xl">
+            <div className="relative w-[200px] xs:w-[220px] sm:w-[247px] md:w-[285px] lg:w-[304px] max-w-[70vw] aspect-[9/19] rounded-[2.5rem] overflow-hidden shadow-2xl">
               {/* Phone frame */}
               <div className="absolute inset-0 bg-gradient-to-b from-gray-800 to-gray-900 rounded-[2.5rem]" />
               {/* Screen */}

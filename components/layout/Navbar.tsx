@@ -37,7 +37,7 @@ export function Navbar() {
           : 'bg-transparent'
       )}
     >
-      <nav className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32 py-4">
+      <nav className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 py-4">
         <div className="flex items-center justify-between">
           {/* Logo - Only image, no text */}
           <Link href="/" className="flex items-center group">
@@ -96,10 +96,10 @@ export function Navbar() {
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="flex flex-col h-full">
                 {/* Mobile Menu Logo - Only image */}
-                <div className="flex items-center justify-center mb-8">
+                <div className="flex items-center justify-center mb-6 sm:mb-8">
                   <motion.div
                     whileHover={{ scale: 1.05 }}
-                    className="relative w-40 h-40"
+                    className="relative w-28 h-28 sm:w-32 sm:h-32"
                   >
                     <Image
                       src="/images/logo/Snapgo%20Logo%20Blue.png"
@@ -118,7 +118,7 @@ export function Navbar() {
                         className={cn(
                           'px-4 py-3 rounded-lg text-base font-medium transition-all duration-300',
                           pathname === link.href
-                            ? 'bg-teal/20 text-teal'
+                            ? 'bg-primary/10 text-primary'
                             : 'text-foreground hover:bg-muted'
                         )}
                       >

@@ -256,12 +256,13 @@ function TrustBadgesSection() {
   const badges = [
     { icon: ShieldIcon, label: 'DPIIT Certified' },
     { icon: StarIcon, label: 'Startup India' },
+    { icon: StarIcon, label: 'Startup Uttarakhand', isGreen: true },
     { icon: CheckCircleIcon, label: 'Aadhaar Verified' },
-    { icon: UsersIcon, label: '8500+ Users' },
-    { icon: MapPinIcon, label: '110+ Daily Rides' },
+    { icon: UsersIcon, label: '8500+ Downloads' },
+    { icon: MapPinIcon, label: '150+ Daily Rides' },
     { icon: HeartIcon, label: 'Trusted Platform' },
     { icon: ZapIcon, label: 'Real-Time Matching' },
-    { icon: LeafIcon, label: 'Eco-Friendly' },
+    { icon: LeafIcon, label: 'Eco-Friendly', isGreen: true },
   ]
 
   return (
@@ -270,10 +271,10 @@ function TrustBadgesSection() {
         {[...badges, ...badges].map((badge, index) => (
           <div
             key={`${badge.label}-${index}`}
-            className="flex items-center gap-2 px-8 py-2 whitespace-nowrap"
+            className="flex items-center gap-2 px-6 sm:px-8 py-2 whitespace-nowrap"
           >
-            <badge.icon className="w-5 h-5 text-teal" />
-            <span className="text-sm font-medium text-muted-foreground">{badge.label}</span>
+            <badge.icon className={`w-5 h-5 ${badge.isGreen ? 'text-emerald-500' : 'text-teal'}`} />
+            <span className={`text-sm font-medium ${badge.isGreen ? 'text-emerald-600' : 'text-muted-foreground'}`}>{badge.label}</span>
           </div>
         ))}
       </div>
@@ -495,13 +496,14 @@ function CTASection() {
               className="flex flex-wrap justify-center gap-8 mt-12"
             >
               {[
-                { value: '8500+', label: 'Happy Users' },
+                { value: '8500+', label: 'App Downloads' },
                 { value: '75%', label: 'Cost Savings' },
-                { value: '110+', label: 'Daily Rides' },
+                { value: '150+', label: 'Daily Rides' },
+                { value: '500+', label: 'Trees Equivalent', isEco: true },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-teal-300">{stat.value}</div>
-                  <div className="text-white/80 text-sm">{stat.label}</div>
+                  <div className={`text-2xl sm:text-3xl md:text-4xl font-bold ${stat.isEco ? 'text-emerald-400' : 'text-teal-300'}`}>{stat.value}</div>
+                  <div className={`text-sm ${stat.isEco ? 'text-emerald-300/80' : 'text-white/80'}`}>{stat.label}</div>
                 </div>
               ))}
             </motion.div>

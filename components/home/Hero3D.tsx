@@ -28,13 +28,13 @@ export function Hero3D() {
       </div>
 
       {/* Gradient Orbs - Visible accents for light background */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 right-20 w-96 h-96 bg-primary/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-20 left-20 w-80 h-80 bg-teal-500/10 rounded-full blur-[80px]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/8 rounded-full blur-[120px]" />
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="hidden sm:block absolute top-20 right-20 w-64 h-64 md:w-96 md:h-96 bg-primary/10 rounded-full blur-[100px]" />
+        <div className="hidden sm:block absolute bottom-20 left-20 w-48 h-48 md:w-80 md:h-80 bg-teal-500/10 rounded-full blur-[80px]" />
+        <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] lg:w-[600px] lg:h-[600px] bg-primary/8 rounded-full blur-[120px]" />
       </div>
 
-      <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 2xl:px-32 relative z-10">
+      <div className="container mx-auto px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 relative z-10">
         <div className="min-h-screen flex items-center py-20 pt-24">
           <div className="grid lg:grid-cols-2 gap-12 items-center w-full">
 
@@ -53,7 +53,7 @@ export function Hero3D() {
               >
                 <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2">
                   <BadgeCheckIcon className="w-4 h-4 mr-2" />
-                  DPIIT Certified Startup | Startup India
+                  DPIIT Certified | Startup India | Startup Uttarakhand
                 </Badge>
               </motion.div>
 
@@ -138,19 +138,23 @@ export function Hero3D() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7 }}
-                className="grid grid-cols-3 gap-6 pt-6 border-t border-border mt-8"
+                className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 pt-6 border-t border-border mt-8"
               >
                 <div>
-                  <div className="text-3xl md:text-4xl font-bold text-primary">7000+</div>
-                  <div className="text-sm text-muted-foreground">App Downloads</div>
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary">8500+</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground">App Downloads</div>
                 </div>
                 <div>
-                  <div className="text-3xl md:text-4xl font-bold text-primary">75%</div>
-                  <div className="text-sm text-muted-foreground">Cost Savings</div>
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary">75%</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground">Cost Savings</div>
                 </div>
                 <div>
-                  <div className="text-3xl md:text-4xl font-bold text-primary">110+</div>
-                  <div className="text-sm text-muted-foreground">Daily Rides</div>
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary">150+</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground">Daily Rides</div>
+                </div>
+                <div>
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-emerald-500">500+</div>
+                  <div className="text-xs sm:text-sm text-emerald-600">Trees Equivalent</div>
                 </div>
               </motion.div>
             </motion.div>
