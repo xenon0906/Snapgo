@@ -204,7 +204,7 @@ export default function FeaturesPage() {
             {/* Stats */}
             <div className="flex flex-wrap justify-center gap-8 mb-12">
               {[
-                { value: '8.5K+', label: 'Users' },
+                { value: '9K+', label: 'Users' },
                 { value: '75%', label: 'Average Savings' },
                 { value: '4.8★', label: 'App Rating' },
               ].map((stat) => (

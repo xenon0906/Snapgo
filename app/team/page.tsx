@@ -121,7 +121,7 @@ function HeroSection() {
             {[
               { value: '10+', label: 'Team Members' },
               { value: '2025', label: 'Founded' },
-              { value: '8.5K+', label: 'Users' },
+              { value: '9K+', label: 'Users' },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
                 <span className="text-xl sm:text-2xl font-bold text-white">{stat.value}</span>
