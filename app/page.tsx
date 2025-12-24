@@ -289,7 +289,7 @@ function TrustBadgesSection() {
     { icon: StarIcon, label: 'Startup India' },
     { icon: StarIcon, label: 'Startup Uttarakhand', isGreen: true },
     { icon: CheckCircleIcon, label: 'Aadhaar Verified' },
-    { icon: UsersIcon, label: '8500+ Downloads' },
+    { icon: UsersIcon, label: '9000+ Downloads' },
     { icon: MapPinIcon, label: '150+ Daily Rides' },
     { icon: HeartIcon, label: 'Trusted Platform' },
     { icon: ZapIcon, label: 'Real-Time Matching' },
@@ -527,7 +527,7 @@ function CTASection() {
               className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 mt-8 sm:mt-10 md:mt-12"
             >
               {[
-                { value: '8500+', label: 'App Downloads' },
+                { value: '9000+', label: 'App Downloads' },
                 { value: '75%', label: 'Cost Savings' },
                 { value: '150+', label: 'Daily Rides' },
                 { value: '500+', label: 'Trees Equivalent', isEco: true },

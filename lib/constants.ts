@@ -21,7 +21,7 @@ export const HERO_CONTENT = {
 }
 
 export const STATS = [
-  { label: 'App Downloads', value: 8500, suffix: '+', prefix: '' },
+  { label: 'App Downloads', value: 9000, suffix: '+', prefix: '' },
   { label: 'Peak Daily Rides', value: 150, suffix: '+', prefix: '' },
   { label: 'Cost Savings', value: 75, suffix: '%', prefix: '' },
   { label: 'Trees Equivalent', value: 500, suffix: '+', prefix: '', isEco: true },

@@ -62,7 +62,7 @@ export function HeroPremium({ hero }: HeroPremiumProps = {}) {
 
   // Impact metrics - Rapido style
   const metrics = [
-    { value: 8500, suffix: '+', label: 'Downloads' },
+    { value: 9000, suffix: '+', label: 'Downloads' },
     { value: 150, suffix: '+', label: 'Cabs Pooled Daily' },
     { value: 75, suffix: '%', label: 'Less Emissions', isEco: true },
   ]

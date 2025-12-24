@@ -141,7 +141,7 @@ export function Hero3D() {
                 className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 pt-6 border-t border-border mt-8"
               >
                 <div>
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary">8500+</div>
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary">9000+</div>
                   <div className="text-xs sm:text-sm text-muted-foreground">App Downloads</div>
                 </div>
                 <div>
