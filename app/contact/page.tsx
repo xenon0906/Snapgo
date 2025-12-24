@@ -89,11 +89,34 @@ function ContactHero() {
     if (!isValid) return
 
     setIsSubmitting(true)
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-    setShowConfetti(true)
-    setTimeout(() => setShowConfetti(false), 2000)
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message')
+      }
+
+      setIsSubmitted(true)
+      setShowConfetti(true)
+      setTimeout(() => setShowConfetti(false), 2000)
+    } catch (error) {
+      console.error('Form submission error:', error)
+      setErrors((prev) => ({
+        ...prev,
+        submit: error instanceof Error ? error.message : 'Failed to send message. Please try again.'
+      }))
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const resetForm = () => {
@@ -197,6 +220,12 @@ function ContactHero() {
                   rows={4}
                   required
                 />
+
+                {errors.submit && (
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">
+                    {errors.submit}
+                  </div>
+                )}
 
                 <Button
                   type="submit"
