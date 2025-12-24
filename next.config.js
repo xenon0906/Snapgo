@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Image optimization for Hostinger
+  // Image optimization for Vercel
   images: {
     remotePatterns: [
       {
@@ -13,16 +13,21 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'www.snapgo.co.in',
+      },
+      {
+        protocol: 'https',
         hostname: 'images.unsplash.com',
       },
       {
         protocol: 'https',
         hostname: 'img.youtube.com',
       },
+      {
+        protocol: 'https',
+        hostname: '*.public.blob.vercel-storage.com',
+      },
     ],
-    // Use unoptimized for static hosting on Hostinger
-    // Set to true if not using Vercel or other platforms with image optimization
-    unoptimized: process.env.NODE_ENV === 'production' && !process.env.VERCEL,
   },
 
   // Performance optimizations
@@ -35,9 +40,6 @@ const nextConfig = {
 
   // Strict mode for better development
   reactStrictMode: true,
-
-  // Trailing slash for better static hosting compatibility
-  trailingSlash: true,
 
   // Powered by header
   poweredByHeader: false,
