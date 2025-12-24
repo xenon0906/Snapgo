@@ -3,7 +3,7 @@ export const SITE_CONFIG = {
   legalName: 'Snapgo Service Private Limited',
   tagline: 'Pool Cabs, Save Money, Go Green',
   description: "India's #1 Cab Pooling Platform. Pool a commercial cab with verified co-riders - 100% legal, eco-friendly, and up to 75% cheaper. Why pay for the full cab when you can save money AND the environment?",
-  url: 'https://snapgo.in',
+  url: 'https://snapgo.co.in',
   email: 'info@snapgo.co.in',
   phone: '+91 6398786105',
   address: 'Block 45, Sharda University, Knowledge Park 3, Greater Noida, Uttar Pradesh, India',

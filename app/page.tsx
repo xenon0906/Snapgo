@@ -1,17 +1,47 @@
 'use client'
 
 import { useRef, useState, useEffect } from 'react'
-import { StatsCounter } from '@/components/home/StatsCounter'
-import { FeaturesGrid } from '@/components/home/FeaturesGrid'
-import { HowItWorks } from '@/components/home/HowItWorks'
-import { TestimonialCarousel } from '@/components/home/TestimonialCarousel'
+import dynamic from 'next/dynamic'
 import { SiteLayout } from '@/components/layout/SiteLayout'
-import { CO2ImpactTracker } from '@/components/gamification/CO2ImpactTracker'
-import { SavingsCalculator } from '@/components/gamification/SavingsCalculator'
 import { HeroPremium } from '@/components/home/HeroPremium'
-import { InstagramSection } from '@/components/home/InstagramSection'
-import { CabPoolingComparison } from '@/components/home/CabPoolingComparison'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { LazySection } from '@/components/shared/LazySection'
+
+// Dynamic imports for heavy components (loaded only when needed)
+const StatsCounter = dynamic(() => import('@/components/home/StatsCounter').then(mod => ({ default: mod.StatsCounter })), {
+  loading: () => <SectionLoader />,
+})
+const FeaturesGrid = dynamic(() => import('@/components/home/FeaturesGrid').then(mod => ({ default: mod.FeaturesGrid })), {
+  loading: () => <SectionLoader />,
+})
+const HowItWorks = dynamic(() => import('@/components/home/HowItWorks').then(mod => ({ default: mod.HowItWorks })), {
+  loading: () => <SectionLoader />,
+})
+const TestimonialCarousel = dynamic(() => import('@/components/home/TestimonialCarousel').then(mod => ({ default: mod.TestimonialCarousel })), {
+  loading: () => <SectionLoader />,
+})
+const CO2ImpactTracker = dynamic(() => import('@/components/gamification/CO2ImpactTracker').then(mod => ({ default: mod.CO2ImpactTracker })), {
+  loading: () => <SectionLoader />,
+})
+const SavingsCalculator = dynamic(() => import('@/components/gamification/SavingsCalculator').then(mod => ({ default: mod.SavingsCalculator })), {
+  loading: () => <SectionLoader />,
+})
+const InstagramSection = dynamic(() => import('@/components/home/InstagramSection').then(mod => ({ default: mod.InstagramSection })), {
+  loading: () => <SectionLoader />,
+  ssr: false, // Instagram embeds don't work well with SSR
+})
+const CabPoolingComparison = dynamic(() => import('@/components/home/CabPoolingComparison').then(mod => ({ default: mod.CabPoolingComparison })), {
+  loading: () => <SectionLoader />,
+})
+
+// Lightweight loading placeholder
+function SectionLoader() {
+  return (
+    <div className="min-h-[300px] bg-gradient-to-b from-muted/20 to-transparent animate-pulse flex items-center justify-center">
+      <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+    </div>
+  )
+}
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'

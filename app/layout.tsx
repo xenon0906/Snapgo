@@ -14,8 +14,10 @@ const inter = Inter({
   display: 'swap',
 })
 
+import { getSiteUrl } from '@/lib/utils/url'
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://snapgo.in'),
+  metadataBase: new URL(getSiteUrl()),
   title: {
     default: `${SITE_CONFIG.name} - ${SITE_CONFIG.tagline}`,
     template: `%s | ${SITE_CONFIG.name}`,
@@ -95,39 +97,119 @@ export const viewport: Viewport = {
   maximumScale: 5,
 }
 
-// JSON-LD structured data
+// Enhanced JSON-LD structured data with multiple schema types
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: SITE_CONFIG.name,
-  legalName: SITE_CONFIG.legalName,
-  url: SITE_CONFIG.url,
-  logo: `${SITE_CONFIG.url}/images/logo/Snapgo%20Logo%20White.png`,
-  description: SITE_CONFIG.description,
-  foundingDate: '2024',
-  founders: SITE_CONFIG.founders.map((founder) => ({
-    '@type': 'Person',
-    name: founder,
-  })),
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'Block 45, Sharda University',
-    addressLocality: 'Greater Noida',
-    addressRegion: 'Uttar Pradesh',
-    postalCode: '201310',
-    addressCountry: 'IN',
-  },
-  contactPoint: {
-    '@type': 'ContactPoint',
-    telephone: SITE_CONFIG.phone,
-    contactType: 'customer service',
-    email: SITE_CONFIG.email,
-    availableLanguage: ['English', 'Hindi'],
-  },
-  sameAs: [
-    SITE_CONFIG.social.facebook,
-    SITE_CONFIG.social.instagram,
-    SITE_CONFIG.social.linkedin,
+  '@graph': [
+    // Organization Schema
+    {
+      '@type': 'Organization',
+      '@id': `${SITE_CONFIG.url}/#organization`,
+      name: SITE_CONFIG.name,
+      legalName: SITE_CONFIG.legalName,
+      url: SITE_CONFIG.url,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_CONFIG.url}/images/logo/Snapgo%20Logo%20Blue.png`,
+        width: 512,
+        height: 512,
+      },
+      description: SITE_CONFIG.description,
+      foundingDate: '2024',
+      founders: SITE_CONFIG.founders.map((founder) => ({
+        '@type': 'Person',
+        name: founder,
+      })),
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Block 45, Sharda University',
+        addressLocality: 'Greater Noida',
+        addressRegion: 'Uttar Pradesh',
+        postalCode: '201310',
+        addressCountry: 'IN',
+      },
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: SITE_CONFIG.phone,
+        contactType: 'customer service',
+        email: SITE_CONFIG.email,
+        availableLanguage: ['English', 'Hindi'],
+      },
+      sameAs: [
+        SITE_CONFIG.social.facebook,
+        SITE_CONFIG.social.instagram,
+        SITE_CONFIG.social.linkedin,
+      ],
+    },
+    // Website Schema
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_CONFIG.url}/#website`,
+      url: SITE_CONFIG.url,
+      name: SITE_CONFIG.name,
+      description: SITE_CONFIG.description,
+      publisher: { '@id': `${SITE_CONFIG.url}/#organization` },
+      inLanguage: 'en-IN',
+    },
+    // Mobile Application Schema
+    {
+      '@type': 'MobileApplication',
+      '@id': `${SITE_CONFIG.url}/#app`,
+      name: 'Snapgo - Pool Cabs, Save Money',
+      operatingSystem: 'ANDROID, IOS',
+      applicationCategory: 'TravelApplication',
+      description: SITE_CONFIG.description,
+      downloadUrl: [
+        'https://play.google.com/store/apps/details?id=in.snapgo.app',
+        'https://apps.apple.com/in/app/snapgo-connect-split-fare/id6748761741',
+      ],
+      installUrl: 'https://play.google.com/store/apps/details?id=in.snapgo.app',
+      screenshot: `${SITE_CONFIG.url}/images/mockups/iphone15/home-screen.png`,
+      softwareVersion: '1.0.0',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'INR',
+      },
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.5',
+        ratingCount: '1000',
+        bestRating: '5',
+        worstRating: '1',
+      },
+      author: { '@id': `${SITE_CONFIG.url}/#organization` },
+    },
+    // Local Business Schema (for local SEO)
+    {
+      '@type': 'LocalBusiness',
+      '@id': `${SITE_CONFIG.url}/#localbusiness`,
+      name: SITE_CONFIG.name,
+      image: `${SITE_CONFIG.url}/images/logo/Snapgo%20Logo%20Blue.png`,
+      telephone: SITE_CONFIG.phone,
+      email: SITE_CONFIG.email,
+      url: SITE_CONFIG.url,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Block 45, Sharda University',
+        addressLocality: 'Greater Noida',
+        addressRegion: 'Uttar Pradesh',
+        postalCode: '201310',
+        addressCountry: 'IN',
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: 28.4744,
+        longitude: 77.504,
+      },
+      priceRange: 'Free',
+      openingHoursSpecification: {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        opens: '00:00',
+        closes: '23:59',
+      },
+    },
   ],
 }
 

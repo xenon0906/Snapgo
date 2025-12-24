@@ -1,9 +1,10 @@
 import { MetadataRoute } from 'next'
 import { prisma } from '@/lib/prisma'
+import { getSiteUrl } from '@/lib/utils/url'
 
 export const dynamic = 'force-dynamic'
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapgo.in'
+const SITE_URL = getSiteUrl()
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static pages
