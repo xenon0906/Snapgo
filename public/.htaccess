@@ -1,94 +1,43 @@
 # Hostinger Apache Configuration for Next.js Static Export
-# Place this file in public_html folder along with your exported files
+# Upload this file to public_html along with your static files
 
-# Enable RewriteEngine
+# Enable Rewrite Engine
 RewriteEngine On
 RewriteBase /
 
-# Force HTTPS (uncomment if SSL is configured)
-# RewriteCond %{HTTPS} off
-# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# Serve existing files directly
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
 
-# Remove www (uncomment if needed)
-# RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-# RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+# Try .html extension for clean URLs
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html [L]
 
-# Handle client-side routing for SPA
-# If the requested file doesn't exist, serve index.html
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_URI} !^/_next/
-RewriteCond %{REQUEST_URI} !^/images/
-RewriteCond %{REQUEST_URI} !^/icons/
-RewriteCond %{REQUEST_URI} !^/uploads/
-RewriteRule ^([^.]+)$ $1.html [L]
+# Fallback to index.html for SPA routing
+RewriteRule ^ /index.html [L]
 
-# Fallback to index.html for routes without .html extension
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /index.html [L,QSA]
+# Prevent directory listing
+Options -Indexes
 
-# Properly serve static assets
+# MIME Types
 <IfModule mod_mime.c>
     AddType text/html .html
     AddType application/javascript .js
     AddType text/css .css
     AddType image/svg+xml .svg
     AddType image/webp .webp
-    AddType image/avif .avif
     AddType image/png .png
     AddType image/jpeg .jpg .jpeg
-    AddType image/gif .gif
-    AddType image/x-icon .ico
     AddType application/json .json
     AddType font/woff2 .woff2
-    AddType font/woff .woff
-    AddType font/ttf .ttf
-    AddType application/manifest+json .webmanifest
 </IfModule>
 
-# Enable GZIP compression
+# Enable compression
 <IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
-    AddOutputFilterByType DEFLATE application/javascript application/json
-    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript
 </IfModule>
-
-# Browser caching for static assets
-<IfModule mod_expires.c>
-    ExpiresActive On
-    ExpiresDefault "access plus 1 month"
-    ExpiresByType text/html "access plus 0 seconds"
-    ExpiresByType image/png "access plus 1 year"
-    ExpiresByType image/jpeg "access plus 1 year"
-    ExpiresByType image/gif "access plus 1 year"
-    ExpiresByType image/webp "access plus 1 year"
-    ExpiresByType image/svg+xml "access plus 1 year"
-    ExpiresByType image/x-icon "access plus 1 year"
-    ExpiresByType text/css "access plus 1 year"
-    ExpiresByType application/javascript "access plus 1 year"
-    ExpiresByType font/woff2 "access plus 1 year"
-    ExpiresByType font/woff "access plus 1 year"
-</IfModule>
-
-# Security headers
-<IfModule mod_headers.c>
-    Header set X-Content-Type-Options "nosniff"
-    Header set X-XSS-Protection "1; mode=block"
-    Header set Referrer-Policy "strict-origin-when-cross-origin"
-</IfModule>
-
-# Prevent directory listing
-Options -Indexes
-
-# Allow all files to be accessed
-<FilesMatch ".*">
-    Order allow,deny
-    Allow from all
-    Require all granted
-</FilesMatch>
 
 # Custom error pages
 ErrorDocument 404 /404.html
 ErrorDocument 403 /index.html
-ErrorDocument 500 /index.html
