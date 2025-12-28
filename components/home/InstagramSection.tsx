@@ -28,18 +28,27 @@ import Script from 'next/script'
 // ============================================================================
 
 // Fallback manual reels (used when API is not configured)
+// Ordered from latest to oldest
 const MANUAL_REELS = [
   {
-    id: 'DDxfo_TTOZF',
-    title: 'Save 75% on Daily Commute',
+    id: 'DSsQJk-AfxN',
+    title: 'Latest from Snapgo',
   },
   {
-    id: 'DDxfo_TTOZF',
-    title: 'How Snapgo Matching Works',
+    id: 'DQ_2YXYjNTK',
+    title: 'Snapgo Updates',
   },
   {
-    id: 'DDxfo_TTOZF',
-    title: 'Student Success Stories',
+    id: 'DSS0Z7jEwrY',
+    title: 'Ride Sharing Made Easy',
+  },
+  {
+    id: 'DQoqD40D1OJ',
+    title: 'Save on Your Commute',
+  },
+  {
+    id: 'DSkjYgSD4kc',
+    title: 'Join the Snapgo Community',
   },
 ]
 
@@ -53,22 +62,34 @@ interface InstagramReel {
 }
 
 function InstagramEmbed({ reelId, isActive }: { reelId: string; isActive: boolean }) {
+  const [isLoaded, setIsLoaded] = useState(false)
+
   useEffect(() => {
-    if (isActive && typeof window !== 'undefined' && (window as any).instgrm) {
-      (window as any).instgrm.Embeds.process()
-    }
+    setIsLoaded(false)
+
+    // Small delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      if (isActive && typeof window !== 'undefined' && (window as any).instgrm) {
+        (window as any).instgrm.Embeds.process()
+        setIsLoaded(true)
+      }
+    }, 100)
+
+    return () => clearTimeout(timer)
   }, [isActive, reelId])
 
   return (
     <div className="w-full h-full flex items-center justify-center bg-black">
       <blockquote
         className="instagram-media"
-        data-instgrm-permalink={`https://www.instagram.com/reel/${reelId}/`}
+        data-instgrm-captioned
+        data-instgrm-permalink={`https://www.instagram.com/reel/${reelId}/?utm_source=ig_embed&utm_campaign=loading`}
         data-instgrm-version="14"
         style={{
           background: '#000',
           border: 0,
           borderRadius: '24px',
+          boxShadow: '0 0 1px 0 rgba(0,0,0,0.5), 0 1px 10px 0 rgba(0,0,0,0.15)',
           margin: 0,
           padding: 0,
           width: '100%',

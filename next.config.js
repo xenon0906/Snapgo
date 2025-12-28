@@ -1,7 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Enable static export for Hostinger/static hosting
+  // Set STATIC_EXPORT=true in env for static build
+  // For Vercel deployment, leave this undefined
+  output: process.env.STATIC_EXPORT === 'true' ? 'export' : undefined,
+
+  // Trailing slash for static hosting compatibility
+  trailingSlash: process.env.STATIC_EXPORT === 'true',
+
   // Image optimization for Vercel
   images: {
+    // Disable image optimization for static export
+    unoptimized: process.env.STATIC_EXPORT === 'true',
     remotePatterns: [
       {
         protocol: 'https',
