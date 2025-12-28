@@ -1,17 +1,24 @@
 /** @type {import('next').NextConfig} */
+
+// Detect if we're building for static export (Hostinger/static hosting)
+const isStaticExport = process.env.STATIC_EXPORT === 'true'
+
 const nextConfig = {
-  // Enable static export for Hostinger/static hosting
-  // Set STATIC_EXPORT=true in env for static build
-  // For Vercel deployment, leave this undefined
-  output: process.env.STATIC_EXPORT === 'true' ? 'export' : undefined,
+  // HOSTINGER: Enable static export for Hostinger shared hosting
+  // Run: npm run build:static (or set STATIC_EXPORT=true)
+  // Then upload the 'out' folder contents to public_html
+  output: isStaticExport ? 'export' : undefined,
 
-  // Trailing slash for static hosting compatibility
-  trailingSlash: process.env.STATIC_EXPORT === 'true',
+  // Trailing slash required for static hosting (Apache)
+  trailingSlash: isStaticExport,
 
-  // Image optimization for Vercel
+  // Build output directory
+  distDir: isStaticExport ? 'out' : '.next',
+
+  // Image optimization
   images: {
-    // Disable image optimization for static export
-    unoptimized: process.env.STATIC_EXPORT === 'true',
+    // MUST disable optimization for static export
+    unoptimized: isStaticExport,
     remotePatterns: [
       {
         protocol: 'https',
@@ -38,13 +45,10 @@ const nextConfig = {
         hostname: '*.public.blob.vercel-storage.com',
       },
     ],
-    // Modern image formats for better compression
     formats: ['image/avif', 'image/webp'],
-    // Optimize image loading
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    // Minimize layout shift
-    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
+    minimumCacheTTL: 60 * 60 * 24 * 30,
   },
 
   // Performance optimizations
@@ -63,119 +67,56 @@ const nextConfig = {
     ],
   },
 
-  // Compression
   compress: true,
-
-  // Strict mode for better development
   reactStrictMode: true,
-
-  // Powered by header - disabled for security
   poweredByHeader: false,
-
-  // Generate ETags for caching
   generateEtags: true,
 
-  // Compiler options for production optimization
   compiler: {
-    // Remove console.log in production
     removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
   },
 
-  // Modular imports for better tree-shaking
   modularizeImports: {
     'lucide-react': {
       transform: 'lucide-react/dist/esm/icons/{{kebabCase member}}',
     },
   },
 
-  // Headers for security, caching, and SEO
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          // Security headers
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'strict-origin-when-cross-origin',
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
-          },
-          {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=(self)',
-          },
-        ],
-      },
-      {
-        // Cache static assets aggressively
-        source: '/images/(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        // Cache fonts
-        source: '/fonts/(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        // Cache JS/CSS bundles
-        source: '/_next/static/(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        // Preload critical resources
-        source: '/',
-        headers: [
-          {
-            key: 'Link',
-            value: '</images/logo/Snapgo Logo White.png>; rel=preload; as=image',
-          },
-        ],
-      },
-    ]
-  },
-
-  // Redirects for SEO (www to non-www)
-  async redirects() {
-    return [
-      {
-        source: '/:path*',
-        has: [
-          {
-            type: 'host',
-            value: 'www.snapgo.co.in',
-          },
-        ],
-        destination: 'https://snapgo.co.in/:path*',
-        permanent: true,
-      },
-    ]
-  },
+  // Headers and redirects only work on Vercel/Node.js (NOT static export)
+  ...(isStaticExport ? {} : {
+    async headers() {
+      return [
+        {
+          source: '/(.*)',
+          headers: [
+            { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+            { key: 'X-Content-Type-Options', value: 'nosniff' },
+            { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+            { key: 'X-XSS-Protection', value: '1; mode=block' },
+            { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(self)' },
+          ],
+        },
+        {
+          source: '/images/(.*)',
+          headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+        },
+        {
+          source: '/_next/static/(.*)',
+          headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+        },
+      ]
+    },
+    async redirects() {
+      return [
+        {
+          source: '/:path*',
+          has: [{ type: 'host', value: 'www.snapgo.co.in' }],
+          destination: 'https://snapgo.co.in/:path*',
+          permanent: true,
+        },
+      ]
+    },
+  }),
 }
 
 module.exports = nextConfig

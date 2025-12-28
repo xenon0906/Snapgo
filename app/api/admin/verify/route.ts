@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import crypto from 'crypto'
 
-export const dynamic = 'force-dynamic'
+// Removed 'force-dynamic' for static export compatibility
 
 function hashPassword(password: string): string {
   return crypto.createHash('sha256').update(password).digest('hex')

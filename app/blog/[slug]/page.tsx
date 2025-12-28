@@ -1,10 +1,20 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { prisma } from '@/lib/prisma'
 import { BlogPost } from './BlogPost'
 import { SITE_CONFIG } from '@/lib/constants'
+import { getBlogBySlug, getBlogs, DEFAULT_BLOGS } from '@/lib/content'
 
+// Generate static params for all blog posts (required for static export)
+export async function generateStaticParams() {
+  const blogs = await getBlogs()
+  return blogs.map((blog) => ({
+    slug: blog.slug,
+  }))
+}
+
+// Static revalidation
 export const revalidate = 3600
+export const dynamicParams = false // Don't allow params not in generateStaticParams
 
 interface Props {
   params: { slug: string }
@@ -12,9 +22,7 @@ interface Props {
 
 async function getBlog(slug: string) {
   try {
-    const blog = await prisma.blog.findUnique({
-      where: { slug, published: true },
-    })
+    const blog = await getBlogBySlug(slug)
     return blog
   } catch (error) {
     console.error('Error fetching blog:', error)
@@ -34,11 +42,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: blog.title,
-    description: blog.metaDesc || blog.excerpt || `Read ${blog.title} on snapgo blog`,
-    keywords: blog.keywords ? JSON.parse(blog.keywords as string) : undefined,
+    description: blog.excerpt || `Read ${blog.title} on snapgo blog`,
     openGraph: {
       title: blog.title,
-      description: blog.metaDesc || blog.excerpt || undefined,
+      description: blog.excerpt || undefined,
       type: 'article',
       publishedTime: blog.createdAt.toISOString(),
       modifiedTime: blog.updatedAt.toISOString(),
@@ -47,7 +54,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     twitter: {
       card: 'summary_large_image',
       title: blog.title,
-      description: blog.metaDesc || blog.excerpt || undefined,
+      description: blog.excerpt || undefined,
       images: blog.imageUrl ? [blog.imageUrl] : undefined,
     },
   }
@@ -61,12 +68,19 @@ export default async function BlogPostPage({ params }: Props) {
     notFound()
   }
 
+  // Convert to format expected by BlogPost component
+  const blogForComponent = {
+    ...blog,
+    metaDesc: blog.excerpt,
+    keywords: null,
+  }
+
   // JSON-LD structured data for the article
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: blog.title,
-    description: blog.metaDesc || blog.excerpt,
+    description: blog.excerpt,
     image: blog.imageUrl,
     datePublished: blog.createdAt.toISOString(),
     dateModified: blog.updatedAt.toISOString(),
@@ -95,7 +109,7 @@ export default async function BlogPostPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <BlogPost blog={blog} />
+      <BlogPost blog={blogForComponent} />
     </>
   )
 }

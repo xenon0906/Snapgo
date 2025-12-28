@@ -1,8 +1,6 @@
 import { MetadataRoute } from 'next'
-import { prisma } from '@/lib/prisma'
+import { getBlogs } from '@/lib/content'
 import { getSiteUrl } from '@/lib/utils/url'
-
-export const dynamic = 'force-dynamic'
 
 const SITE_URL = getSiteUrl()
 
@@ -77,18 +75,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ]
 
-  // Dynamic blog pages
+  // Dynamic blog pages from static content
   let blogPages: MetadataRoute.Sitemap = []
 
   try {
-    const blogs = await prisma.blog.findMany({
-      where: { published: true },
-      select: {
-        slug: true,
-        updatedAt: true,
-      },
-      orderBy: { updatedAt: 'desc' },
-    })
+    const blogs = await getBlogs()
 
     blogPages = blogs.map((blog) => ({
       url: `${SITE_URL}/blog/${blog.slug}`,

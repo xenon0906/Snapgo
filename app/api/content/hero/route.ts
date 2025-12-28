@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getHeroContent, DEFAULT_HERO } from '@/lib/content'
 
-export const dynamic = 'force-dynamic'
+// Removed 'force-dynamic' for static export compatibility
 
 // Static mode - returns static hero content
 export async function GET() {

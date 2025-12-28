@@ -7,7 +7,7 @@ import {
   getTrafficSources,
 } from '@/lib/ga-server'
 
-export const dynamic = 'force-dynamic'
+// Removed 'force-dynamic' for static export compatibility
 
 export async function GET() {
   // Require admin authentication

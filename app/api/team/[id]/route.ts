@@ -2,6 +2,11 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/api-auth'
 
+// Required for static export - returns empty array (API routes won't work on static hosting)
+export function generateStaticParams() {
+  return []
+}
+
 // GET - Fetch a single team member
 export async function GET(
   req: NextRequest,
